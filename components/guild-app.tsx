@@ -21,9 +21,17 @@ import {
   WifiOff,
   RotateCcw,
   ExternalLink,
+  Settings,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/ui/dialog';
+import { affordableModels, recruitmentBudget } from '@/lib/recruitment';
 import {
   NativeSelect as Select,
   NativeSelectOption as Option,
@@ -116,6 +124,31 @@ function download(filename: string, value: unknown) {
 function useCaption(lang: Lang) {
   return (ru: string, en: string) => (lang === 'ru' ? ru : en);
 }
+export function RosterEquipmentButton({
+  modelName,
+  ui,
+  onClick,
+}: {
+  modelName: string;
+  ui: Lang;
+  onClick: () => void;
+}) {
+  const label =
+    ui === 'ru' ? 'Улучшения и снаряжение' : 'Upgrades and equipment';
+  return (
+    <Button
+      variant="ghost"
+      size="icon"
+      className="roster-upgrade"
+      aria-label={`${label}: ${modelName}`}
+      title={label}
+      aria-haspopup="dialog"
+      onClick={onClick}
+    >
+      <Settings size={18} aria-hidden="true" />
+    </Button>
+  );
+}
 
 export default function GuildApp({
   catalog: latest,
@@ -171,6 +204,7 @@ export default function GuildApp({
   }, []);
   const importRef = useRef<HTMLInputElement>(null),
     matchRef = useRef<PublicMatch | null>(null),
+    loadoutTitleRef = useRef<HTMLHeadingElement>(null),
     t = useCaption(ui);
   const upgrades = d.upgrades ?? UPGRADES;
   const mutate = (fn: (r: Roster) => Roster) => {
@@ -376,15 +410,18 @@ export default function GuildApp({
   };
   const add = (c: Character) => {
     const id = crypto.randomUUID();
-    mutate((r) => ({
-      ...r,
-      entries: [
-        ...r.entries,
-        { id, characterId: c.id, notes: '', spells: [], upgrades: [] },
-      ],
-      leaderId: r.leaderId ?? id,
-    }));
-    setSelected(id);
+    mutate((r) =>
+      c.cost > recruitmentBudget(r, d) || r.entries.length >= 10
+        ? r
+        : {
+            ...r,
+            entries: [
+              ...r.entries,
+              { id, characterId: c.id, notes: '', spells: [], upgrades: [] },
+            ],
+            leaderId: r.leaderId ?? id,
+          },
+    );
   };
   const editEntry = (id: string, fn: (e: Entry) => Entry) =>
     mutate((r) => ({
@@ -401,7 +438,7 @@ export default function GuildApp({
     points = total(r, d),
     readOnly = !!meta && !meta.canEdit;
   const faction = tab === 'catalog' ? catalogFaction : r.factionId;
-  const chars = d.characters
+  const filteredChars = d.characters
     .filter(
       (c) =>
         (!faction ||
@@ -420,6 +457,13 @@ export default function GuildApp({
           .includes(q.toLowerCase()),
     )
     .sort((a, b) => a.cost - b.cost || a.name.localeCompare(b.name));
+  const remaining = recruitmentBudget(r, d);
+  const chars =
+    tab === 'builder'
+      ? affordableModels(filteredChars, remaining)
+      : filteredChars;
+  const hiddenByBudget =
+    tab === 'builder' ? filteredChars.length - chars.length : 0;
   const selectedEntry = r.entries.find((e) => e.id === selected),
     selectedChar = d.characters.find(
       (c) => c.id === selectedEntry?.characterId,
@@ -580,6 +624,13 @@ export default function GuildApp({
         </div>
         <span className="count">{chars.length}</span>
       </div>
+      {tab === 'builder' && (
+        <p className="source-note budget-note" aria-live="polite">
+          {t('Осталось', 'Remaining')}: {remaining} RP.
+          {hiddenByBudget > 0 &&
+            ` ${t('Скрыто моделей дороже остатка', 'Models above the remaining budget hidden')}: ${hiddenByBudget}.`}
+        </p>
+      )}
       <div className="cards">
         {chars.map((c) => (
           <article className="unit-card" key={c.id}>
@@ -637,7 +688,9 @@ export default function GuildApp({
                 {tab === 'builder' && (
                   <Button
                     aria-label={`${t('Добавить', 'Add')} ${name(c.id, c.name, lang)}`}
-                    disabled={readOnly || r.entries.length >= 10}
+                    disabled={
+                      readOnly || r.entries.length >= 10 || c.cost > remaining
+                    }
                     onClick={() => add(c)}
                   >
                     <Plus size={16} />
@@ -652,15 +705,32 @@ export default function GuildApp({
       {!chars.length && (
         <div className="empty">
           <Search />
-          <h3>{t('Модели не найдены', 'No models found')}</h3>
+          <h3>
+            {hiddenByBudget > 0
+              ? t('Не хватает RP на модель', 'Not enough RP for a model')
+              : t('Модели не найдены', 'No models found')}
+          </h3>
           <p>
-            {t(
-              'Измените запрос или сбросьте фильтры.',
-              'Try another query or reset filters.',
-            )}
+            {hiddenByBudget > 0
+              ? t(
+                  'Освободите RP: уберите модель или улучшение, либо увеличьте лимит отряда. Все профили доступны в справочнике.',
+                  'Free up RP by removing a model or upgrade, or increase the party limit. All profiles remain available in the catalogue.',
+                )
+              : t(
+                  'Измените запрос или сбросьте фильтры.',
+                  'Try another query or reset filters.',
+                )}
           </p>
-          <Button variant="outline" onClick={reset}>
-            {t('Сбросить', 'Reset')}
+          <Button
+            variant="outline"
+            onClick={() => {
+              reset();
+              if (hiddenByBudget > 0) setTab('catalog');
+            }}
+          >
+            {hiddenByBudget > 0
+              ? t('Открыть справочник', 'Open catalogue')
+              : t('Сбросить', 'Reset')}
           </Button>
         </div>
       )}
@@ -950,9 +1020,8 @@ export default function GuildApp({
                       >
                         <button
                           className="roster-entry"
-                          onClick={() =>
-                            setSelected(selected === e.id ? null : e.id)
-                          }
+                          aria-haspopup="dialog"
+                          onClick={() => setSelected(e.id)}
                         >
                           <span className="entry-number">
                             {String(i + 1).padStart(2, '0')}
@@ -980,6 +1049,13 @@ export default function GuildApp({
                             </small>
                           </span>
                         </button>
+                        <RosterEquipmentButton
+                          modelName={
+                            c ? name(c.id, c.name, lang) : e.characterId
+                          }
+                          ui={ui}
+                          onClick={() => setSelected(e.id)}
+                        />
                         <Button
                           variant="ghost"
                           size="icon"
@@ -1161,322 +1237,361 @@ export default function GuildApp({
             )}
           </div>
         )}
-        {tab === 'builder' && selectedEntry && selectedChar && (
-          <section className="entry-editor no-print">
-            <div className="section-title">
-              <div>
-                <p className="eyebrow">03 / {t('СНАРЯЖЕНИЕ', 'LOADOUT')}</p>
-                <h2>{name(selectedChar.id, selectedChar.name, lang)}</h2>
+        <Dialog
+          open={tab === 'builder' && !!selectedEntry && !!selectedChar}
+          onOpenChange={(open) => {
+            if (!open) setSelected(null);
+          }}
+        >
+          {selectedEntry && selectedChar && (
+            <DialogContent
+              className="entry-editor loadout-dialog no-print"
+              showCloseButton={false}
+              initialFocus={loadoutTitleRef}
+            >
+              <div className="section-title">
+                <div>
+                  <p className="eyebrow">
+                    {t('УЛУЧШЕНИЯ И СНАРЯЖЕНИЕ', 'UPGRADES AND EQUIPMENT')}
+                  </p>
+                  <DialogTitle ref={loadoutTitleRef} tabIndex={-1}>
+                    {name(selectedChar.id, selectedChar.name, lang)}
+                  </DialogTitle>
+                </div>
+                <div className="row">
+                  <Button
+                    variant="outline"
+                    onClick={() =>
+                      setProfile({ c: selectedChar, d, entry: selectedEntry })
+                    }
+                  >
+                    <BookOpen size={16} />
+                    {t('Полный профиль', 'Full profile')}
+                  </Button>
+                  <Button variant="ghost" onClick={() => setSelected(null)}>
+                    {t('Готово', 'Done')}
+                  </Button>
+                </div>
               </div>
+              <DialogDescription>
+                {readOnly
+                  ? t(
+                      'Только просмотр. Сохраните свою копию ростера, чтобы изменить снаряжение.',
+                      'Read-only. Save your own roster copy to change equipment.',
+                    )
+                  : t(
+                      'Выберите улучшения или предметы для этой модели. Изменения сразу попадают в черновик ростера.',
+                      'Choose upgrades or equipment for this model. Changes are applied to the roster draft immediately.',
+                    )}
+              </DialogDescription>
+              <p
+                className={remaining < 0 ? 'warning' : 'muted'}
+                aria-live="polite"
+              >
+                {t('Отряд', 'Party')}: {points} / {r.pointsLimit} RP ·{' '}
+                {t('Осталось', 'Remaining')}: {remaining} RP
+              </p>
+              <Stats
+                character={upgraded(selectedChar, selectedEntry, d)}
+                lang={ui}
+              />
+              <p className="source-note">
+                {t(
+                  'Показаны базовые характеристики с числовыми бонусами улучшений. Выданные предметы и замены оружия отражены в инвентаре; условные боевые эффекты применяйте по карточке.',
+                  'Base attributes with numeric upgrade bonuses. Granted items and weapon replacements appear in the inventory; resolve conditional combat effects using the card.',
+                )}
+              </p>
               <div className="row">
                 <Button
-                  variant="outline"
+                  disabled={readOnly}
+                  variant={
+                    r.leaderId === selectedEntry.id ? 'default' : 'outline'
+                  }
                   onClick={() =>
-                    setProfile({ c: selectedChar, d, entry: selectedEntry })
+                    mutate((r) => ({ ...r, leaderId: selectedEntry.id }))
                   }
                 >
-                  <BookOpen size={16} />
-                  {t('Полный профиль', 'Full profile')}
+                  <Crown size={16} />
+                  {t('Назначить лидером', 'Party leader')}
                 </Button>
-                <Button variant="ghost" onClick={() => setSelected(null)}>
-                  {t('Свернуть', 'Collapse')}
+                <Button
+                  disabled={readOnly || r.entries.length >= 10}
+                  variant="outline"
+                  onClick={() => {
+                    const id = crypto.randomUUID();
+                    mutate((r) => ({
+                      ...r,
+                      entries: [
+                        ...r.entries,
+                        { ...structuredClone(selectedEntry), id },
+                      ],
+                    }));
+                    setSelected(id);
+                  }}
+                >
+                  <Copy size={16} />
+                  {t('Дублировать модель', 'Duplicate model')}
                 </Button>
               </div>
-            </div>
-            <Stats
-              character={upgraded(selectedChar, selectedEntry, d)}
-              lang={ui}
-            />
-            <p className="source-note">
-              {t(
-                'Показаны базовые характеристики с числовыми бонусами улучшений. Выданные предметы и замены оружия отражены в инвентаре; условные боевые эффекты применяйте по карточке.',
-                'Base attributes with numeric upgrade bonuses. Granted items and weapon replacements appear in the inventory; resolve conditional combat effects using the card.',
-              )}
-            </p>
-            <div className="row">
-              <Button
-                disabled={readOnly}
-                variant={
-                  r.leaderId === selectedEntry.id ? 'default' : 'outline'
-                }
-                onClick={() =>
-                  mutate((r) => ({ ...r, leaderId: selectedEntry.id }))
-                }
-              >
-                <Crown size={16} />
-                {t('Назначить лидером', 'Party leader')}
-              </Button>
-              <Button
-                disabled={readOnly || r.entries.length >= 10}
-                variant="outline"
-                onClick={() => {
-                  const id = crypto.randomUUID();
-                  mutate((r) => ({
-                    ...r,
-                    entries: [
-                      ...r.entries,
-                      { ...structuredClone(selectedEntry), id },
-                    ],
-                  }));
-                  setSelected(id);
-                }}
-              >
-                <Copy size={16} />
-                {t('Дублировать модель', 'Duplicate model')}
-              </Button>
-            </div>
-            <EquipmentPanel
-              key={selectedEntry.id}
-              c={selectedChar}
-              entry={selectedEntry}
-              r={r}
-              d={d}
-              ui={ui}
-              lang={lang}
-              readOnly={readOnly}
-              add={(id) =>
-                mutate((current) => ({
-                  ...current,
-                  entries: current.entries.map((e) =>
-                    e.id === selectedEntry.id
-                      ? itemPurchase(e, selectedChar, current, d, id).entry
-                      : e,
-                  ),
-                }))
-              }
-              remove={(index) =>
-                editEntry(selectedEntry.id, (e) => ({
-                  ...e,
-                  upgrades: e.upgrades.filter((_, i) => i !== index),
-                }))
-              }
-            />
-            <div className="loadout-columns">
-              {selectedChar.id === 'DJINNBORN_MARZBAN' && (
+              <div className="loadout-columns">
+                {selectedChar.id === 'DJINNBORN_MARZBAN' && (
+                  <section>
+                    <label>
+                      {t('Стихия Мерзбана', 'Marzban element')}
+                      <Select
+                        disabled={readOnly}
+                        value={selectedEntry.element ?? ''}
+                        onChange={(event) =>
+                          editEntry(selectedEntry.id, (e) => ({
+                            ...e,
+                            element: event.target.value,
+                            spells: [],
+                          }))
+                        }
+                      >
+                        <Option value="">
+                          {t('Выберите одну стихию…', 'Choose one element…')}
+                        </Option>
+                        {['FIRE', 'AIR', 'EARTH', 'WATER', 'ELDER'].map(
+                          (element) => (
+                            <Option key={element} value={element}>
+                              {term(element, lang)}
+                            </Option>
+                          ),
+                        )}
+                      </Select>
+                    </label>
+                    <p className="source-note">
+                      {t(
+                        'Определяет сродство, сопротивление и доступные заклинания. При смене стихии памятка заклинаний очищается.',
+                        'Determines affinity, resistance and available spells. Changing the element clears selected spell references.',
+                      )}
+                    </p>
+                  </section>
+                )}
                 <section>
+                  <h3>{t('Улучшения', 'Upgrades')}</h3>
                   <label>
-                    {t('Стихия Мерзбана', 'Marzban element')}
+                    {t('Добавить улучшение', 'Add upgrade')}
                     <Select
+                      value=""
                       disabled={readOnly}
-                      value={selectedEntry.element ?? ''}
-                      onChange={(event) =>
-                        editEntry(selectedEntry.id, (e) => ({
-                          ...e,
-                          element: event.target.value,
-                          spells: [],
-                        }))
-                      }
+                      onChange={(e) => {
+                        if (e.target.value)
+                          editEntry(selectedEntry.id, (x) => ({
+                            ...x,
+                            upgrades: [
+                              ...x.upgrades,
+                              { id: e.target.value, choice: '' },
+                            ],
+                          }));
+                      }}
                     >
                       <Option value="">
-                        {t('Выберите одну стихию…', 'Choose one element…')}
+                        {t('Выберите карточку…', 'Choose a card…')}
                       </Option>
-                      {['FIRE', 'AIR', 'EARTH', 'WATER', 'ELDER'].map(
-                        (element) => (
-                          <Option key={element} value={element}>
-                            {term(element, lang)}
+                      {upgrades
+                        .filter((u) =>
+                          u.factions.some((f) =>
+                            [r.factionId, 'NEUTRAL'].includes(f),
+                          ),
+                        )
+                        .map((u) => (
+                          <Option key={u.id} value={u.id}>
+                            {upgradeName(u, lang)} · {u.cost} RP
                           </Option>
-                        ),
-                      )}
+                        ))}
                     </Select>
                   </label>
-                  <p className="source-note">
-                    {t(
-                      'Определяет сродство, сопротивление и доступные заклинания. При смене стихии памятка заклинаний очищается.',
-                      'Determines affinity, resistance and available spells. Changing the element clears selected spell references.',
-                    )}
-                  </p>
-                </section>
-              )}
-              <section>
-                <h3>{t('Улучшения', 'Upgrades')}</h3>
-                <label>
-                  {t('Добавить улучшение', 'Add upgrade')}
-                  <Select
-                    value=""
-                    disabled={readOnly}
-                    onChange={(e) => {
-                      if (e.target.value)
-                        editEntry(selectedEntry.id, (x) => ({
-                          ...x,
-                          upgrades: [
-                            ...x.upgrades,
-                            { id: e.target.value, choice: '' },
-                          ],
-                        }));
-                    }}
-                  >
-                    <Option value="">
-                      {t('Выберите карточку…', 'Choose a card…')}
-                    </Option>
-                    {upgrades
-                      .filter((u) =>
-                        u.factions.some((f) =>
-                          [r.factionId, 'NEUTRAL'].includes(f),
-                        ),
-                      )
-                      .map((u) => (
-                        <Option key={u.id} value={u.id}>
-                          {upgradeName(u, lang)} · {u.cost} RP
-                        </Option>
-                      ))}
-                  </Select>
-                </label>
-                {selectedEntry.upgrades.map((u, index) => {
-                  const spec = upgrades.find((x) => x.id === u.id),
-                    options = upgradeOptions(u.id, selectedChar, d);
-                  return (
-                    <div className="upgrade" key={`${u.id}-${index}`}>
-                      <div className="row">
-                        <b>{spec ? upgradeName(spec, lang) : u.id}</b>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          disabled={readOnly}
-                          aria-label={t('Удалить улучшение', 'Remove upgrade')}
-                          onClick={() =>
-                            editEntry(selectedEntry.id, (e) => ({
-                              ...e,
-                              upgrades: e.upgrades.filter(
-                                (_, i) => i !== index,
-                              ),
-                            }))
-                          }
-                        >
-                          <Trash2 size={16} />
-                        </Button>
-                      </div>
-                      {options.length > 0 && (
-                        <label>
-                          {t('Вариант', 'Option')}
-                          <Select
+                  {selectedEntry.upgrades.map((u, index) => {
+                    const spec = upgrades.find((x) => x.id === u.id),
+                      options = upgradeOptions(u.id, selectedChar, d);
+                    return (
+                      <div className="upgrade" key={`${u.id}-${index}`}>
+                        <div className="row">
+                          <b>{spec ? upgradeName(spec, lang) : u.id}</b>
+                          <Button
+                            variant="ghost"
+                            size="icon"
                             disabled={readOnly}
-                            value={u.choice}
-                            onChange={(e) =>
-                              editEntry(selectedEntry.id, (x) => ({
-                                ...x,
-                                upgrades: x.upgrades.map((v, i) =>
-                                  i === index
-                                    ? { ...v, choice: e.target.value }
-                                    : v,
+                            aria-label={t(
+                              'Удалить улучшение',
+                              'Remove upgrade',
+                            )}
+                            onClick={() =>
+                              editEntry(selectedEntry.id, (e) => ({
+                                ...e,
+                                upgrades: e.upgrades.filter(
+                                  (_, i) => i !== index,
                                 ),
                               }))
                             }
                           >
-                            <Option value="">—</Option>
-                            {options.map((s) => (
-                              <Option key={s} value={s}>
-                                {term(s, lang)}
-                              </Option>
-                            ))}
-                          </Select>
-                        </label>
-                      )}
-                      <details>
-                        <summary>
-                          {t('Текст карточки', 'Card text')} · {spec?.cost} RP
-                        </summary>
-                        {spec &&
-                          lang === 'ru' &&
-                          !translationCurrent(`upgrade:${spec.id}`, spec) && (
-                            <p className="warning">
-                              {t(
-                                'Источник изменился: показан английский оригинал до проверки перевода.',
-                                'Source changed: showing English until translation review.',
-                              )}
-                            </p>
-                          )}
-                        <p
-                          className="rule-text"
-                          lang={
-                            spec &&
-                            lang === 'ru' &&
-                            translationCurrent(`upgrade:${spec.id}`, spec)
-                              ? 'ru'
-                              : 'en'
-                          }
-                        >
-                          {spec && upgradeText(spec, lang)}
-                        </p>
-                        {spec && lang === 'ru' && (
-                          <details>
-                            <summary>
-                              {t('Оригинал (EN)', 'English original')}
-                            </summary>
-                            <p lang="en">{spec.description}</p>
-                          </details>
+                            <Trash2 size={16} />
+                          </Button>
+                        </div>
+                        {options.length > 0 && (
+                          <label>
+                            {t('Вариант', 'Option')}
+                            <Select
+                              disabled={readOnly}
+                              value={u.choice}
+                              onChange={(e) =>
+                                editEntry(selectedEntry.id, (x) => ({
+                                  ...x,
+                                  upgrades: x.upgrades.map((v, i) =>
+                                    i === index
+                                      ? { ...v, choice: e.target.value }
+                                      : v,
+                                  ),
+                                }))
+                              }
+                            >
+                              <Option value="">—</Option>
+                              {options.map((s) => (
+                                <Option key={s} value={s}>
+                                  {term(s, lang)}
+                                </Option>
+                              ))}
+                            </Select>
+                          </label>
                         )}
-                        <a
-                          href={`${UPGRADE_SOURCE}#page=${spec?.page}`}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          v1.6 · {t('с.', 'p.')} {spec?.page} ↗
-                        </a>
-                      </details>
-                    </div>
-                  );
-                })}
-              </section>
-              <section>
-                <h3>
-                  {t('Заклинания для памятки', 'Spell reference selection')}
-                </h3>
-                <p className="muted">
-                  {t(
-                    'Это удобный список доступных заклинаний, не покупка магии.',
-                    'A handy selection of available spells, not a spell purchase.',
+                        <details>
+                          <summary>
+                            {t('Текст карточки', 'Card text')} · {spec?.cost} RP
+                          </summary>
+                          {spec &&
+                            lang === 'ru' &&
+                            !translationCurrent(`upgrade:${spec.id}`, spec) && (
+                              <p className="warning">
+                                {t(
+                                  'Источник изменился: показан английский оригинал до проверки перевода.',
+                                  'Source changed: showing English until translation review.',
+                                )}
+                              </p>
+                            )}
+                          <p
+                            className="rule-text"
+                            lang={
+                              spec &&
+                              lang === 'ru' &&
+                              translationCurrent(`upgrade:${spec.id}`, spec)
+                                ? 'ru'
+                                : 'en'
+                            }
+                          >
+                            {spec && upgradeText(spec, lang)}
+                          </p>
+                          {spec && lang === 'ru' && (
+                            <details>
+                              <summary>
+                                {t('Оригинал (EN)', 'English original')}
+                              </summary>
+                              <p lang="en">{spec.description}</p>
+                            </details>
+                          )}
+                          <a
+                            href={`${UPGRADE_SOURCE}#page=${spec?.page}`}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            v1.6 · {t('с.', 'p.')} {spec?.page} ↗
+                          </a>
+                        </details>
+                      </div>
+                    );
+                  })}
+                </section>
+                <section>
+                  <h3>
+                    {t('Заклинания для памятки', 'Spell reference selection')}
+                  </h3>
+                  <p className="muted">
+                    {t(
+                      'Это удобный список доступных заклинаний, не покупка магии.',
+                      'A handy selection of available spells, not a spell purchase.',
+                    )}
+                  </p>
+                  {spellsFor(upgraded(selectedChar, selectedEntry, d), d).map(
+                    (s) => (
+                      <div
+                        className="spell-choice"
+                        key={`${s.schoolId}-${s.id}`}
+                      >
+                        <label className="check">
+                          <input
+                            disabled={readOnly}
+                            type="checkbox"
+                            checked={selectedEntry.spells.includes(s.id)}
+                            onChange={(e) =>
+                              editEntry(selectedEntry.id, (x) => ({
+                                ...x,
+                                spells: e.target.checked
+                                  ? [...x.spells, s.id]
+                                  : x.spells.filter((id) => id !== s.id),
+                              }))
+                            }
+                          />
+                          {ruleName(s, lang)} · {s.level} ·{' '}
+                          {term(s.element, lang)}
+                        </label>
+                        <Rule record={s} lang={lang} ui={ui} />
+                      </div>
+                    ),
                   )}
-                </p>
-                {spellsFor(upgraded(selectedChar, selectedEntry, d), d).map(
-                  (s) => (
-                    <div className="spell-choice" key={`${s.schoolId}-${s.id}`}>
-                      <label className="check">
-                        <input
-                          disabled={readOnly}
-                          type="checkbox"
-                          checked={selectedEntry.spells.includes(s.id)}
-                          onChange={(e) =>
-                            editEntry(selectedEntry.id, (x) => ({
-                              ...x,
-                              spells: e.target.checked
-                                ? [...x.spells, s.id]
-                                : x.spells.filter((id) => id !== s.id),
-                            }))
-                          }
-                        />
-                        {ruleName(s, lang)} · {s.level} ·{' '}
-                        {term(s.element, lang)}
-                      </label>
-                      <Rule record={s} lang={lang} ui={ui} />
-                    </div>
-                  ),
-                )}
-              </section>
-              <section>
-                <label>
-                  {t('Заметки модели', 'Model notes')}
-                  <textarea
-                    disabled={readOnly}
-                    maxLength={2000}
-                    value={selectedEntry.notes}
-                    onChange={(e) =>
-                      editEntry(selectedEntry.id, (x) => ({
-                        ...x,
-                        notes: e.target.value,
-                      }))
-                    }
-                  />
-                </label>
-                <p className="source-note">
-                  {t(
-                    'Изменения сохраняются вместе с ростером.',
-                    'Changes are saved with the roster.',
-                  )}
-                </p>
-              </section>
-            </div>
-          </section>
-        )}
+                </section>
+                <section>
+                  <label>
+                    {t('Заметки модели', 'Model notes')}
+                    <textarea
+                      disabled={readOnly}
+                      maxLength={2000}
+                      value={selectedEntry.notes}
+                      onChange={(e) =>
+                        editEntry(selectedEntry.id, (x) => ({
+                          ...x,
+                          notes: e.target.value,
+                        }))
+                      }
+                    />
+                  </label>
+                  <p className="source-note">
+                    {t(
+                      'Изменения сохраняются вместе с ростером.',
+                      'Changes are saved with the roster.',
+                    )}
+                  </p>
+                </section>
+              </div>
+              <EquipmentPanel
+                key={selectedEntry.id}
+                c={selectedChar}
+                entry={selectedEntry}
+                r={r}
+                d={d}
+                ui={ui}
+                lang={lang}
+                readOnly={readOnly}
+                add={(id) =>
+                  mutate((current) => ({
+                    ...current,
+                    entries: current.entries.map((e) =>
+                      e.id === selectedEntry.id
+                        ? itemPurchase(e, selectedChar, current, d, id).entry
+                        : e,
+                    ),
+                  }))
+                }
+                remove={(index) =>
+                  editEntry(selectedEntry.id, (e) => ({
+                    ...e,
+                    upgrades: e.upgrades.filter((_, i) => i !== index),
+                  }))
+                }
+              />
+            </DialogContent>
+          )}
+        </Dialog>
         {tab === 'rosters' && (
           <section className="wide-panel no-print">
             <div className="section-title">

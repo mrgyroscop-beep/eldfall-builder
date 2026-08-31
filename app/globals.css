@@ -573,7 +573,16 @@ progress {
   display: flex;
   border-bottom: 1px solid var(--border);
   align-items: center;
-  gap: 4px;
+  gap: 8px;
+}
+.roster-upgrade {
+  color: var(--primary);
+  min-width: 44px;
+  min-height: 44px;
+}
+.roster-entry > span:last-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 .roster-list li.selected {
   background: #313d33;
@@ -731,6 +740,35 @@ textarea:focus-visible {
 }
 .entry-editor .eyebrow {
   color: var(--primary);
+}
+.loadout-dialog.entry-editor {
+  display: block;
+  width: min(1040px, calc(100vw - 32px));
+  max-width: min(1040px, calc(100vw - 32px)) !important;
+  max-height: 90dvh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  margin: 0;
+  scroll-padding: 24px;
+}
+.loadout-dialog [data-slot='dialog-title'] {
+  font: 28px/1.2 Georgia;
+  overflow-wrap: anywhere;
+}
+.loadout-dialog .loadout-columns {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.loadout-dialog .loadout-columns > section:last-child {
+  grid-column: 1 / -1;
+}
+@media (max-width: 640px) {
+  .loadout-dialog .loadout-columns {
+    grid-template-columns: 1fr;
+  }
+  .loadout-dialog .section-title {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
 }
 .loadout-columns {
   display: grid;

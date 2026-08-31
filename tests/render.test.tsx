@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { renderToString } from 'react-dom/server';
-import GuildApp from '../components/guild-app';
+import GuildApp, { RosterEquipmentButton } from '../components/guild-app';
 import data from '../data/current.json';
 import type { Catalog } from '../lib/model';
 import { readFileSync } from 'node:fs';
@@ -21,4 +21,24 @@ void test('responsive and print layouts keep key controls accessible', () => {
   assert.match(css, /prefers-reduced-motion/);
   assert.match(css, /focus-visible/);
   assert.match(css, /min-height: 44px/);
+});
+void test('roster gear is an accessible, labelled dialog button in either language', () => {
+  for (const ui of ['ru', 'en'] as const) {
+    const html = renderToString(
+      <RosterEquipmentButton
+        modelName="Red Rasetsu"
+        ui={ui}
+        onClick={() => {}}
+      />,
+    );
+    assert.match(html, /aria-haspopup="dialog"/);
+    assert.match(html, /roster-upgrade/);
+    assert.match(html, /lucide-settings/);
+    assert.ok(
+      html.includes(
+        `aria-label="${ui === 'ru' ? 'Улучшения и снаряжение' : 'Upgrades and equipment'}: Red Rasetsu"`,
+      ),
+    );
+    assert.ok(!html.includes('disabled=""'));
+  }
 });
