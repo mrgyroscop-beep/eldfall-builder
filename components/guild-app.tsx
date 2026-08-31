@@ -48,7 +48,19 @@ import {
   SOURCES,
 } from '@/lib/game';
 import type { MatchAction } from '@/lib/game';
-import { name, plain, ruleName, stateNames, translations } from '@/lib/i18n';
+import {
+  name,
+  ruleName,
+  ruleText,
+  stateNames,
+  translations,
+  term,
+  upgradeName,
+  upgradeText,
+  statNames,
+  translationCurrent,
+} from '@/lib/i18n';
+import { errorText, issueText } from '@/lib/messages';
 import {
   UPGRADES,
   upgradeOptions,
@@ -73,18 +85,6 @@ type Bootstrap = {
 };
 type Meta = { id: string; revision: number; token: string; canEdit: boolean };
 const initial: Bootstrap = { userId: '', rosters: [], matches: [] };
-const errors: Record<string, string> = {
-  CONFLICT:
-    'Состояние уже изменилось на другом устройстве. Ваш черновик сохранён. Обновите данные или сохраните копию.',
-  FORBIDDEN: 'Нет доступа к этой записи.',
-  FORMAT_MISMATCH:
-    'У ростеров должны совпадать лимит очков, версия данных и правил.',
-  MATCH_FULL: 'В матче уже два игрока.',
-  SIGN_IN_REQUIRED: 'Войдите в аккаунт, которому открыт доступ к сайту.',
-  DATA_VERSION_UNAVAILABLE: 'Эта версия справочника отсутствует на сервере.',
-  SERVER_ERROR: 'Ошибка сервера. Попробуйте ещё раз.',
-  OWN_ROSTER_REQUIRED: 'Сначала сохраните свой ростер.',
-};
 async function request<T>(
   action: string,
   payload: Record<string, unknown> = {},
@@ -113,12 +113,23 @@ function useCaption(lang: Lang) {
   return (ru: string, en: string) => (lang === 'ru' ? ru : en);
 }
 
-export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
-  const [ui, setUi] = useState<Lang>('ru'),
-    [lang, setLang] = useState<Lang>('ru'),
+export default function GuildApp({
+  catalog: latest,
+  initialUi = 'ru',
+  initialLang = 'ru',
+}: {
+  catalog: Catalog;
+  initialUi?: Lang;
+  initialLang?: Lang;
+}) {
+  const [ui, setUi] = useState<Lang>(initialUi),
+    [lang, setLang] = useState<Lang>(initialLang),
     [tab, setTab] = useState('builder'),
     [d, setData] = useState(latest),
-    [r, setRoster] = useState<Roster>(() => freshRoster(latest));
+    [r, setRoster] = useState<Roster>(() => ({
+      ...freshRoster(latest),
+      name: initialUi === 'en' ? 'New expedition' : 'Новая экспедиция',
+    }));
   const [meta, setMeta] = useState<Meta | null>(null),
     [boot, setBoot] = useState(initial),
     [hydrated, setHydrated] = useState(false),
@@ -162,7 +173,7 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
   }, []);
   const problem = useCallback((e: unknown) => {
     const msg = e instanceof Error ? e.message : String(e);
-    setError(errors[msg] ?? msg);
+    setError(msg);
   }, []);
   const run = async (fn: () => Promise<void>) => {
     setBusy(true);
@@ -305,6 +316,9 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
       window.removeEventListener('online', poll);
     };
   }, [tab, match?.id, matchToken, acceptMatch]);
+  useEffect(() => {
+    document.documentElement.lang = ui;
+  }, [ui]);
   const link = (type: string, id: string, key: string) =>
     `${location.origin}/#${type}=${encodeURIComponent(id)}${key ? `&key=${encodeURIComponent(key)}` : ''}`;
   const guardDraft = () =>
@@ -416,7 +430,8 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
       exportedAt: new Date().toISOString(),
     });
   const importFile = async (file: File) => {
-    if (file.size > 10000000) throw Error('Файл слишком большой (макс. 10 МБ).');
+    if (file.size > 10000000)
+      throw Error('Файл слишком большой (макс. 10 МБ).');
     const pack = JSON.parse(await file.text());
     if (pack.format === 'calad-backup-1') {
       if (!Array.isArray(pack.rosters) || pack.rosters.length > 1000)
@@ -507,7 +522,7 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
         <Input
           value={tag}
           onChange={(e) => setTag(e.target.value)}
-          placeholder="e.g. elite"
+          placeholder={t('Например: elite', 'e.g. elite')}
         />
       </label>
       {tab === 'builder' && (
@@ -529,7 +544,7 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
     <div className="catalog-content">
       <div className="section-title">
         <div>
-          <p className="eyebrow">THE MUSTER ROLL</p>
+          <p className="eyebrow">{t('СПИСОК НАБОРА', 'THE MUSTER ROLL')}</p>
           <h2>{t('Доступные модели', 'Available models')}</h2>
         </div>
         <span className="count">{chars.length}</span>
@@ -555,7 +570,13 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
                 <span>
                   {c.classes
                     .slice(0, 2)
-                    .map((id) => name(id, id, lang))
+                    .map((id) =>
+                      name(
+                        id,
+                        d.classes.find((x) => x.id === id)?.name ?? id,
+                        lang,
+                      ),
+                    )
                     .join(' / ')}
                 </span>
                 <b>
@@ -568,10 +589,12 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
               >
                 {name(c.id, c.name, lang)}
               </button>
-              <p className="original">{c.name}</p>
+              <p className="original" lang="en">
+                {lang === 'ru' ? `EN: ${c.name}` : '\u00a0'}
+              </p>
               <div className="unit-stats">
                 {['STA', 'SPD', 'OFF', 'DEF', 'HP'].map((k) => (
-                  <span key={k}>
+                  <span key={k} title={ui === 'ru' ? statNames[k] : k}>
                     {k} <b>{c.stats[k]?.value ?? '—'}</b>
                   </span>
                 ))}
@@ -582,7 +605,7 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
                 </Button>
                 {tab === 'builder' && (
                   <Button
-                    aria-label={`${t('Добавить', 'Add')} ${c.name}`}
+                    aria-label={`${t('Добавить', 'Add')} ${name(c.id, c.name, lang)}`}
                     disabled={readOnly || r.entries.length >= 10}
                     onClick={() => add(c)}
                   >
@@ -647,26 +670,27 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
         </nav>
         <div className="language-controls">
           <label htmlFor="ui-language">
-            UI
+            {t('Интерфейс', 'Interface')}
             <Select
               id="ui-language"
-              aria-label="Interface language"
+              aria-label={t('Язык интерфейса', 'Interface language')}
               value={ui}
               onChange={(e) => setUi(e.target.value as Lang)}
             >
-              <Option value="ru">RU</Option>
-              <Option value="en">EN</Option>
+              <Option value="ru">RU · Русский</Option>
+              <Option value="en">EN · English</Option>
             </Select>
           </label>
           <label>
-            {t('Данные', 'Data')}
+            {t('Игровые тексты', 'Game text')}
             <Select
-              aria-label="Game data language"
+              id="data-language"
+              aria-label={t('Язык игровых текстов', 'Game data language')}
               value={lang}
               onChange={(e) => setLang(e.target.value as Lang)}
             >
-              <Option value="ru">RU</Option>
-              <Option value="en">EN</Option>
+              <Option value="ru">RU · Русский</Option>
+              <Option value="en">EN · English</Option>
             </Select>
           </label>
         </div>
@@ -687,7 +711,9 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
       <main id="main">
         <div className="workspace-head no-print">
           <div>
-            <p className="eyebrow">YOUR NEXT EXPEDITION</p>
+            <p className="eyebrow">
+              {t('ВАША СЛЕДУЮЩАЯ ЭКСПЕДИЦИЯ', 'YOUR NEXT EXPEDITION')}
+            </p>
             <h1>
               {tab === 'builder'
                 ? t('Соберите свою историю.', 'Assemble your story.')
@@ -708,16 +734,16 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
             </p>
           </div>
           <div className="edition">
-            RULEBOOK
+            {t('ПРАВИЛА', 'RULEBOOK')}
             <br />
             <strong>1.6</strong>
             <br />
-            ERRATA · APR 2026
+            {t('ИСПРАВЛЕНИЯ · АПР 2026', 'ERRATA · APR 2026')}
           </div>
         </div>
         {error && (
           <div className="message error no-print" role="alert">
-            {error}
+            {errorText(error, ui)}
             <Button variant="ghost" onClick={() => setError('')}>
               {t('Закрыть', 'Dismiss')}
             </Button>
@@ -818,8 +844,8 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
               <hr />
               <p className="source-note">
                 {t(
-                  'Переводы названий — черновые. Непереведённые правила показаны на английском.',
-                  'Russian names are draft translations. Untranslated rules use the English original.',
+                  'Русский перевод — неофициальный черновик. Английский оригинал доступен в каждой карточке правил.',
+                  'Russian translations are unofficial drafts. Each rule card includes its English original.',
                 )}
               </p>
             </aside>
@@ -849,7 +875,7 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
                 <progress
                   value={Math.min(points, r.pointsLimit)}
                   max={r.pointsLimit || 1}
-                  aria-label="Recruitment budget"
+                  aria-label={t('Бюджет набора', 'Recruitment budget')}
                 />
                 <p className="muted">
                   {r.entries.length} / 10 {t('моделей', 'models')} ·{' '}
@@ -910,7 +936,7 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
                             )}
                             <small>
                               {e.upgrades.length
-                                ? `${e.upgrades.length} upgrades · `
+                                ? `${e.upgrades.length} ${t('улучш.', 'upgrades')} · `
                                 : ''}
                               {c
                                 ? c.cost +
@@ -926,7 +952,7 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
                         <Button
                           variant="ghost"
                           size="icon"
-                          aria-label={`${t('Удалить', 'Remove')} ${c?.name}`}
+                          aria-label={`${t('Удалить', 'Remove')} ${c ? name(c.id, c.name, lang) : e.characterId}`}
                           disabled={readOnly}
                           onClick={() => remove(e.id)}
                         >
@@ -951,7 +977,7 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
                                 x.entryId && setSelected(x.entryId)
                               }
                             >
-                              {x.message}
+                              {issueText(x, ui, d)}
                             </button>{' '}
                             <a
                               href={x.source}
@@ -1094,7 +1120,7 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
                 </div>
                 <small className="version">
                   {d.version}
-                  {meta ? ` · rev ${meta.revision}` : ''}
+                  {meta ? ` · ${t('версия', 'rev')} ${meta.revision}` : ''}
                 </small>
               </aside>
             )}
@@ -1120,7 +1146,10 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
                 </Button>
               </div>
             </div>
-            <Stats character={upgraded(selectedChar, selectedEntry, d)} />
+            <Stats
+              character={upgraded(selectedChar, selectedEntry, d)}
+              lang={ui}
+            />
             <p className="source-note">
               {t(
                 'Показаны базовые характеристики с числовыми бонусами улучшений. Условные эффекты и замены оружия применяйте по карточке.',
@@ -1160,6 +1189,41 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
               </Button>
             </div>
             <div className="loadout-columns">
+              {selectedChar.id === 'DJINNBORN_MARZBAN' && (
+                <section>
+                  <label>
+                    {t('Стихия Мерзбана', 'Marzban element')}
+                    <Select
+                      disabled={readOnly}
+                      value={selectedEntry.element ?? ''}
+                      onChange={(event) =>
+                        editEntry(selectedEntry.id, (e) => ({
+                          ...e,
+                          element: event.target.value,
+                          spells: [],
+                        }))
+                      }
+                    >
+                      <Option value="">
+                        {t('Выберите одну стихию…', 'Choose one element…')}
+                      </Option>
+                      {['FIRE', 'AIR', 'EARTH', 'WATER', 'ELDER'].map(
+                        (element) => (
+                          <Option key={element} value={element}>
+                            {term(element, lang)}
+                          </Option>
+                        ),
+                      )}
+                    </Select>
+                  </label>
+                  <p className="source-note">
+                    {t(
+                      'Определяет сродство, сопротивление и доступные заклинания. При смене стихии памятка заклинаний очищается.',
+                      'Determines affinity, resistance and available spells. Changing the element clears selected spell references.',
+                    )}
+                  </p>
+                </section>
+              )}
               <section>
                 <h3>{t('Улучшения', 'Upgrades')}</h3>
                 <label>
@@ -1189,7 +1253,7 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
                       )
                       .map((u) => (
                         <Option key={u.id} value={u.id}>
-                          {u.name} · {u.cost} RP
+                          {upgradeName(u, lang)} · {u.cost} RP
                         </Option>
                       ))}
                   </Select>
@@ -1200,12 +1264,12 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
                   return (
                     <div className="upgrade" key={`${u.id}-${index}`}>
                       <div className="row">
-                        <b>{spec?.name ?? u.id}</b>
+                        <b>{spec ? upgradeName(spec, lang) : u.id}</b>
                         <Button
                           variant="ghost"
                           size="icon"
                           disabled={readOnly}
-                          aria-label="Remove upgrade"
+                          aria-label={t('Удалить улучшение', 'Remove upgrade')}
                           onClick={() =>
                             editEntry(selectedEntry.id, (e) => ({
                               ...e,
@@ -1238,7 +1302,7 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
                             <Option value="">—</Option>
                             {options.map((s) => (
                               <Option key={s} value={s}>
-                                {s}
+                                {term(s, lang)}
                               </Option>
                             ))}
                           </Select>
@@ -1248,13 +1312,42 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
                         <summary>
                           {t('Текст карточки', 'Card text')} · {spec?.cost} RP
                         </summary>
-                        <p className="rule-text">{spec?.description}</p>
+                        {spec &&
+                          lang === 'ru' &&
+                          !translationCurrent(`upgrade:${spec.id}`, spec) && (
+                            <p className="warning">
+                              {t(
+                                'Источник изменился: показан английский оригинал до проверки перевода.',
+                                'Source changed: showing English until translation review.',
+                              )}
+                            </p>
+                          )}
+                        <p
+                          className="rule-text"
+                          lang={
+                            spec &&
+                            lang === 'ru' &&
+                            translationCurrent(`upgrade:${spec.id}`, spec)
+                              ? 'ru'
+                              : 'en'
+                          }
+                        >
+                          {spec && upgradeText(spec, lang)}
+                        </p>
+                        {spec && lang === 'ru' && (
+                          <details>
+                            <summary>
+                              {t('Оригинал (EN)', 'English original')}
+                            </summary>
+                            <p lang="en">{spec.description}</p>
+                          </details>
+                        )}
                         <a
                           href={`${UPGRADE_SOURCE}#page=${spec?.page}`}
                           target="_blank"
                           rel="noreferrer"
                         >
-                          v1.6 · p. {spec?.page} ↗
+                          v1.6 · {t('с.', 'p.')} {spec?.page} ↗
                         </a>
                       </details>
                     </div>
@@ -1288,12 +1381,10 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
                             }))
                           }
                         />
-                        {ruleName(s)} · {s.level} · {s.element}
+                        {ruleName(s, lang)} · {s.level} ·{' '}
+                        {term(s.element, lang)}
                       </label>
-                      <details>
-                        <summary>{t('Эффект', 'Effect')}</summary>
-                        <p>{plain(s.effect)}</p>
-                      </details>
+                      <Rule record={s} lang={lang} ui={ui} />
                     </div>
                   ),
                 )}
@@ -1334,7 +1425,11 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
                 <Button
                   onClick={() => {
                     if (guardDraft()) {
-                      setRoster(freshRoster(latest));
+                      setRoster({
+                        ...freshRoster(latest),
+                        name:
+                          ui === 'en' ? 'New expedition' : 'Новая экспедиция',
+                      });
                       setData(latest);
                       setMeta(null);
                       setDirty(true);
@@ -1383,17 +1478,15 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
               <div className="saved-grid">
                 {boot.rosters.map((s) => (
                   <article className="saved-card" key={s.id}>
-                    <p className="eyebrow">
-                      {s.roster.factionId.replaceAll('_', ' ')}
-                    </p>
+                    <p className="eyebrow">{term(s.roster.factionId, lang)}</p>
                     <h3>{s.roster.name}</h3>
                     <p>
                       {s.roster.entries.length} {t('моделей', 'models')} ·{' '}
                       {s.roster.pointsLimit} RP
                     </p>
                     <small>
-                      {new Date(s.updatedAt).toLocaleString()} · rev{' '}
-                      {s.revision}
+                      {new Date(s.updatedAt).toLocaleString(ui)} ·{' '}
+                      {t('версия', 'rev')} {s.revision}
                     </small>
                     <div className="row">
                       <Button
@@ -1440,7 +1533,8 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
             {history.map((h) => (
               <div className="history-row" key={h.revision}>
                 <span>
-                  rev {h.revision} · {new Date(h.updated).toLocaleString()}
+                  {t('Версия', 'Revision')} {h.revision} ·{' '}
+                  {new Date(h.updated).toLocaleString(ui)}
                 </span>
                 <Button
                   variant="outline"
@@ -1464,20 +1558,20 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
             <h2>{t('Правила и справочники', 'Rules and references')}</h2>
             <div className="resource-links">
               <a href={SOURCES.core} target="_blank" rel="noreferrer">
-                Rulebook v1.6 ↗
+                {t('Книга правил', 'Rulebook')} v1.6 ↗
               </a>
               <a href={SOURCES.errata} target="_blank" rel="noreferrer">
-                Errata April 2026 ↗
+                {t('Исправления: апрель 2026', 'Errata April 2026')} ↗
               </a>
               <a href={UPGRADE_SOURCE} target="_blank" rel="noreferrer">
-                Upgrade cards v1.6 ↗
+                {t('Карточки улучшений', 'Upgrade cards')} v1.6 ↗
               </a>
               <a
                 href="https://drive.google.com/file/d/1sArYJbxiVc0t9z8OvyDsTM45-atJa3qU/view"
                 target="_blank"
                 rel="noreferrer"
               >
-                Schemes v1.6 ↗
+                {t('Схемы', 'Schemes')} v1.6 ↗
               </a>
             </div>
             <div className="reference-sections">
@@ -1489,16 +1583,21 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
                   ['Combat arts', d.combatArts],
                   ['Stratagems', d.stratagems],
                   ['Items', d.items],
-                  ...d.schools.map((s) => [s.name, s.spells]),
+                  ...d.schools.map((s) => [name(s.id, s.name, lang), s.spells]),
                 ] as [string, typeof d.classes][]
               ).map(([title, records]) => (
                 <details key={title}>
                   <summary>
-                    {title}{' '}
+                    {term(title, ui)}{' '}
                     <small>{(records as typeof d.classes).length}</small>
                   </summary>
                   {(records as typeof d.classes).map((rec, i) => (
-                    <Rule key={`${rec.id}-${i}`} record={rec} />
+                    <Rule
+                      key={`${rec.id}-${i}`}
+                      record={rec}
+                      lang={lang}
+                      ui={ui}
+                    />
                   ))}
                 </details>
               ))}
@@ -1515,7 +1614,7 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
                   maxLength={80}
                   value={playerName}
                   onChange={(e) => setPlayerName(e.target.value)}
-                  placeholder="Player"
+                  placeholder={t('Игрок', 'Player')}
                 />
               </label>
             </div>
@@ -1526,7 +1625,7 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
                   value={code}
                   onChange={(e) => setCode(e.target.value.trim().toLowerCase())}
                   maxLength={16}
-                  placeholder="16 characters"
+                  placeholder={t('16 символов', '16 characters')}
                 />
               </label>
               <Button
@@ -1548,11 +1647,14 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
                 <div className="match-toolbar">
                   <div>
                     <p className="eyebrow">
-                      MATCH · {match.id.slice(0, 8)} · REV {match.revision}
+                      {t('МАТЧ', 'MATCH')} · {match.id.slice(0, 8)} ·{' '}
+                      {t('ВЕРСИЯ', 'REV')} {match.revision}
                     </p>
                     <h2>
                       {t('Раунд', 'Round')} {match.play.round}{' '}
-                      <span className="status-pill">{match.status}</span>
+                      <span className="status-pill">
+                        {term(match.status, ui)}
+                      </span>
                     </h2>
                   </div>
                   <p className={sync === 'offline' ? 'warning' : 'muted'}>
@@ -1644,7 +1746,8 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
                           {t('моделей', 'models')}
                         </p>
                         <small>
-                          {p.roster.dataVersion} · Rules {p.roster.rulesVersion}
+                          {p.roster.dataVersion} · {t('Правила', 'Rules')}{' '}
+                          {term(p.roster.rulesVersion, ui)}
                         </small>
                         <div className="row">
                           <span className="status-pill">
@@ -1676,11 +1779,16 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
                           </Button>
                         </div>
                         <div className="score-control">
-                          <span>VP</span>
+                          <span title={t('Победные очки', 'Victory points')}>
+                            {t('ПО', 'VP')}
+                          </span>
                           <Button
                             variant="outline"
                             disabled={locked}
-                            aria-label="Decrease victory points"
+                            aria-label={t(
+                              'Уменьшить победные очки',
+                              'Decrease victory points',
+                            )}
                             onClick={() =>
                               void run(() =>
                                 act({
@@ -1696,7 +1804,10 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
                           <Button
                             variant="outline"
                             disabled={locked}
-                            aria-label="Increase victory points"
+                            aria-label={t(
+                              'Увеличить победные очки',
+                              'Increase victory points',
+                            )}
                             onClick={() =>
                               void run(() =>
                                 act({
@@ -1736,7 +1847,7 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
                                   {e.upgrades
                                     .map(
                                       (u) =>
-                                        `${(p.catalog.upgrades ?? UPGRADES).find((x) => x.id === u.id)?.name ?? u.id}${u.choice ? ` (${u.choice})` : ''}`,
+                                        `${upgradeName((p.catalog.upgrades ?? UPGRADES).find((x) => x.id === u.id) ?? { id: u.id, name: u.id }, lang)}${u.choice ? ` (${term(u.choice, lang)})` : ''}`,
                                     )
                                     .join(' · ')}
                                 </p>
@@ -1747,7 +1858,7 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
                                     {(['hp', 'ap', 'mana'] as const).map(
                                       (field) => (
                                         <div key={field}>
-                                          <label>{field.toUpperCase()}</label>
+                                          <label>{term(field, ui)}</label>
                                           <div>
                                             <Button
                                               size="icon"
@@ -1755,7 +1866,7 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
                                               disabled={
                                                 locked || u[field] === 0
                                               }
-                                              aria-label={`${field} minus`}
+                                              aria-label={`${t('Уменьшить', 'Decrease')} ${term(field, ui)}`}
                                               onClick={() =>
                                                 void run(() =>
                                                   act({
@@ -1776,7 +1887,7 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
                                               disabled={
                                                 locked || u[field] === 100
                                               }
-                                              aria-label={`${field} plus`}
+                                              aria-label={`${t('Увеличить', 'Increase')} ${term(field, ui)}`}
                                               onClick={() =>
                                                 void run(() =>
                                                   act({
@@ -1864,6 +1975,12 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
                                 </>
                               )}
                               {e.notes && <p className="note">{e.notes}</p>}
+                              {e.element && (
+                                <p>
+                                  {t('Стихия', 'Element')}:{' '}
+                                  {term(e.element, lang)}
+                                </p>
+                              )}
                             </article>
                           );
                         })}
@@ -2060,8 +2177,9 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
                     <p key={e.seq}>
                       <span className="mono">#{e.seq}</span> ·{' '}
                       {match.players.find((p) => p.userId === e.actor)?.name ??
-                        'Player'}{' '}
-                      · {e.action} · {new Date(e.at).toLocaleTimeString()}
+                        t('Игрок', 'Player')}{' '}
+                      · {term(e.action, ui)} ·{' '}
+                      {new Date(e.at).toLocaleTimeString(ui)}
                     </p>
                   ))}
                 </details>
@@ -2084,11 +2202,11 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
             <div className="saved-grid">
               {boot.matches.map((m) => (
                 <article className="saved-card" key={m.id}>
-                  <span className="status-pill">{m.status}</span>
+                  <span className="status-pill">{term(m.status, ui)}</span>
                   <h3>{m.players.map((p) => p.rosterName).join(' × ')}</h3>
                   <p>{m.players.map((p) => p.name).join(' / ')}</p>
                   <p>{m.result}</p>
-                  <small>{new Date(m.updatedAt).toLocaleString()}</small>
+                  <small>{new Date(m.updatedAt).toLocaleString(ui)}</small>
                   <Button
                     variant="outline"
                     disabled={busy}
@@ -2108,10 +2226,11 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
             <h1>{r.name}</h1>
             <p>
               {name(r.factionId, r.factionId, lang)} · {points}/{r.pointsLimit}{' '}
-              RP · {r.entries.length} models
+              RP · {r.entries.length} {t('моделей', 'models')}
             </p>
             <small>
-              Rules {r.rulesVersion} + Errata April 2026 · Data {r.dataVersion}
+              {t('Правила', 'Rules')} {term(r.rulesVersion, ui)} ·{' '}
+              {t('Данные', 'Data')} {r.dataVersion}
             </small>
           </header>
           {r.entries.map((e, i) => {
@@ -2121,19 +2240,33 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
               <article key={e.id}>
                 <h2>
                   {i + 1}. {name(c.id, c.name, lang)}{' '}
-                  {r.leaderId === e.id ? '★ Leader' : ''} · {c.cost} RP
+                  {r.leaderId === e.id ? t('★ Лидер', '★ Leader') : ''} ·{' '}
+                  {c.cost} RP
                 </h2>
-                <Stats character={upgraded(c, e, d)} />
+                <Stats character={upgraded(c, e, d)} lang={ui} />
+                {e.element && (
+                  <p>
+                    {t('Стихия', 'Element')}: {term(e.element, lang)}
+                  </p>
+                )}
                 <p>
-                  {c.classes.join(' / ')} · Inventory:{' '}
+                  {c.classes.map((id) => term(id, lang)).join(' / ')} ·{' '}
+                  {t('Инвентарь', 'Inventory')}:{' '}
                   {c.items
-                    .map((i) => `${i.itemId} ×${i.quantity}`)
+                    .map((i) => `${term(i.itemId, lang)} ×${i.quantity}`)
                     .join(', ') || '—'}
                 </p>
                 {e.upgrades.map((u, j) => (
                   <p key={j}>
-                    + {upgrades.find((x) => x.id === u.id)?.name ?? u.id}{' '}
-                    {u.choice} · {upgradeCost(u.id, c, e, r, d)} RP
+                    +{' '}
+                    {upgradeName(
+                      upgrades.find((x) => x.id === u.id) ?? {
+                        id: u.id,
+                        name: u.id,
+                      },
+                      lang,
+                    )}{' '}
+                    {term(u.choice, lang)} · {upgradeCost(u.id, c, e, r, d)} RP
                   </p>
                 ))}
                 {e.spells.map((id) => {
@@ -2142,7 +2275,7 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
                     .find((s) => s.id === id);
                   return (
                     <p key={id}>
-                      {s ? `${ruleName(s)}: ${plain(s.effect)}` : id}
+                      {s ? `${ruleName(s, lang)}: ${ruleText(s, lang)}` : id}
                     </p>
                   );
                 })}
@@ -2152,8 +2285,9 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
           })}
           <p>{r.notes}</p>
           <p>
-            Profile source: guildhall.eldfall-chronicles.com · Upgrade cards
-            v1.6
+            {t('Источник профилей', 'Profile source')}:
+            guildhall.eldfall-chronicles.com ·{' '}
+            {t('Карточки улучшений', 'Upgrade cards')} v1.6
           </p>
         </section>
       </main>
@@ -2166,7 +2300,7 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
           )}
         </span>
         <span>
-          {d.characters.length} profiles · {d.date} ·{' '}
+          {d.characters.length} {t('профилей', 'profiles')} · {d.date} ·{' '}
           <a href={d.sourceUrl} target="_blank" rel="noreferrer">
             Guild Hall ↗
           </a>
@@ -2187,6 +2321,7 @@ export default function GuildApp({ catalog: latest }: { catalog: Catalog }) {
         c={profile?.c ?? null}
         d={profile?.d ?? d}
         lang={lang}
+        ui={ui}
         close={() => setProfile(null)}
       />
     </div>

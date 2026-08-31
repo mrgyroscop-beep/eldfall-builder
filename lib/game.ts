@@ -130,6 +130,11 @@ export function validate(r: Roster, d: Catalog): Issue[] {
       );
     for (const msg of upgradeErrors(e, c, r, d))
       add('UPGRADE', msg, e.id, UPGRADE_SOURCE);
+    if (
+      c.id === 'DJINNBORN_MARZBAN' &&
+      !['FIRE', 'AIR', 'EARTH', 'WATER', 'ELDER'].includes(e.element ?? '')
+    )
+      add('ELEMENT', 'Выберите одну стихию Мерзбана.', e.id, SOURCES.profiles);
     const allowed = spellsFor(upgraded(c, e, d), d).map((s) => s.id);
     if (e.spells.some((id) => !allowed.includes(id)))
       add(

@@ -1,0 +1,1907 @@
+{
+  "rule:WIZARD": {
+    "status": "draft",
+    "fingerprint": "af19da2b",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:ARTIFICER": {
+    "status": "draft",
+    "fingerprint": "6c49a3eb",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:SOLDIER": {
+    "status": "draft",
+    "fingerprint": "df7c9aab",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:MAGE": {
+    "status": "draft",
+    "fingerprint": "23d4b05a",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:SUMMONER": {
+    "status": "draft",
+    "fingerprint": "f7644844",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:CREATURE": {
+    "status": "draft",
+    "fingerprint": "d2d0a556",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:SORCERER": {
+    "status": "draft",
+    "fingerprint": "2617417c",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:MYSTIC": {
+    "status": "draft",
+    "fingerprint": "b298650f",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:RANGER": {
+    "status": "draft",
+    "fingerprint": "7bad5c4d",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:ARMSMASTER": {
+    "status": "draft",
+    "fingerprint": "7535013f",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:WARRIOR": {
+    "status": "draft",
+    "fingerprint": "a85843f4",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:ASSASSIN": {
+    "status": "draft",
+    "fingerprint": "dd879430",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:ROGUE": {
+    "status": "draft",
+    "fingerprint": "9941b740",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:BERSERKER": {
+    "status": "draft",
+    "fingerprint": "8f4a8946",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:VITALIST": {
+    "status": "draft",
+    "fingerprint": "5b5409f5",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:MOUNT": {
+    "status": "draft",
+    "fingerprint": "c514753c",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:MARKSMAN": {
+    "status": "draft",
+    "fingerprint": "3a2ba8c8",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:RIDER": {
+    "status": "draft",
+    "fingerprint": "dc370a16",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:ENCHANTER": {
+    "status": "draft",
+    "fingerprint": "445b72eb",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:SENTINEL": {
+    "status": "draft",
+    "fingerprint": "38523b01",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:ALCHEMIST": {
+    "status": "draft",
+    "fingerprint": "150e26a2",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:traits-34": {
+    "status": "draft",
+    "fingerprint": "cd11e247",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:traits-29": {
+    "status": "draft",
+    "fingerprint": "f7e12132",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:traits-26": {
+    "status": "draft",
+    "fingerprint": "ae674792",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:traits-47": {
+    "status": "draft",
+    "fingerprint": "619f6b52",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:traits-78": {
+    "status": "draft",
+    "fingerprint": "cf1044d3",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:traits-30": {
+    "status": "draft",
+    "fingerprint": "948298e8",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:traits-38": {
+    "status": "draft",
+    "fingerprint": "badc69af",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:traits-80": {
+    "status": "draft",
+    "fingerprint": "7093d2ef",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:traits-33": {
+    "status": "draft",
+    "fingerprint": "dbfc3274",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:traits-32": {
+    "status": "draft",
+    "fingerprint": "96baf696",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:traits-36": {
+    "status": "draft",
+    "fingerprint": "d8f272cb",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:traits-31": {
+    "status": "draft",
+    "fingerprint": "983201aa",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:traits-35": {
+    "status": "draft",
+    "fingerprint": "c74636f7",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:traits-25": {
+    "status": "draft",
+    "fingerprint": "96ae00ea",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:traits-37": {
+    "status": "draft",
+    "fingerprint": "a84ed7b2",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:traits-70": {
+    "status": "draft",
+    "fingerprint": "542d70d7",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:traits-73": {
+    "status": "draft",
+    "fingerprint": "fda3cac1",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:traits-53": {
+    "status": "draft",
+    "fingerprint": "b93cc088",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:traits-46": {
+    "status": "draft",
+    "fingerprint": "2986dcd1",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:traits-60": {
+    "status": "draft",
+    "fingerprint": "0c34574f",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:traits-40": {
+    "status": "draft",
+    "fingerprint": "64e34b72",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:traits-75": {
+    "status": "draft",
+    "fingerprint": "e99a290b",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:traits-84": {
+    "status": "draft",
+    "fingerprint": "011996d3",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:traits-28": {
+    "status": "draft",
+    "fingerprint": "ece025eb",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:traits-39": {
+    "status": "draft",
+    "fingerprint": "01d08e45",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:traits-83": {
+    "status": "draft",
+    "fingerprint": "85df03d4",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:traits-79": {
+    "status": "draft",
+    "fingerprint": "ac2df61b",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:traits-81": {
+    "status": "draft",
+    "fingerprint": "aa16eb0e",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:skills-38": {
+    "status": "draft",
+    "fingerprint": "afcae85f",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:skills-31": {
+    "status": "draft",
+    "fingerprint": "7dad3fcb",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:skills-44": {
+    "status": "draft",
+    "fingerprint": "4c01b262",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:skills-36": {
+    "status": "draft",
+    "fingerprint": "bf8e42f5",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:skills-50": {
+    "status": "draft",
+    "fingerprint": "54c587c9",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:skills-46": {
+    "status": "draft",
+    "fingerprint": "e1d3ffb4",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:skills-48": {
+    "status": "draft",
+    "fingerprint": "40dced68",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:skills-39": {
+    "status": "draft",
+    "fingerprint": "80ee8673",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:skills-29": {
+    "status": "draft",
+    "fingerprint": "3644caf2",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:skills-32": {
+    "status": "draft",
+    "fingerprint": "9b51ca7e",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:skills-33": {
+    "status": "draft",
+    "fingerprint": "54eddcf8",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:skills-45": {
+    "status": "draft",
+    "fingerprint": "46be2e8b",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:skills-41": {
+    "status": "draft",
+    "fingerprint": "c0278368",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:skills-43": {
+    "status": "draft",
+    "fingerprint": "f90ba9df",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:skills-52": {
+    "status": "draft",
+    "fingerprint": "f592d509",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:skills-51": {
+    "status": "draft",
+    "fingerprint": "9bca711a",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:skills-28": {
+    "status": "draft",
+    "fingerprint": "27fb7252",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:skills-40": {
+    "status": "draft",
+    "fingerprint": "7c7d09ec",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:skills-30": {
+    "status": "draft",
+    "fingerprint": "0072c7a2",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:skills-42": {
+    "status": "draft",
+    "fingerprint": "84271349",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:skills-35": {
+    "status": "draft",
+    "fingerprint": "ebd43da7",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:skills-49": {
+    "status": "draft",
+    "fingerprint": "4f05ae92",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:skills-34": {
+    "status": "draft",
+    "fingerprint": "f0184f67",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:skills-54": {
+    "status": "draft",
+    "fingerprint": "331c74f1",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:skills-55": {
+    "status": "draft",
+    "fingerprint": "1b02b70e",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:skills-37": {
+    "status": "draft",
+    "fingerprint": "add03173",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:skills-47": {
+    "status": "draft",
+    "fingerprint": "99fd44a0",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:skills-53": {
+    "status": "draft",
+    "fingerprint": "c97f8acd",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:combatArts-31": {
+    "status": "draft",
+    "fingerprint": "a3acf5e1",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:combatArts-22": {
+    "status": "draft",
+    "fingerprint": "2b4ba0d9",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:combatArts-28": {
+    "status": "draft",
+    "fingerprint": "25c57a8b",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:combatArts-26": {
+    "status": "draft",
+    "fingerprint": "d2f2cdc9",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:combatArts-30": {
+    "status": "draft",
+    "fingerprint": "aa6e1305",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:combatArts-32": {
+    "status": "draft",
+    "fingerprint": "ece8e623",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:combatArts-29": {
+    "status": "draft",
+    "fingerprint": "f2417c4c",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:combatArts-25": {
+    "status": "draft",
+    "fingerprint": "fe1c0bcc",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:combatArts-36": {
+    "status": "draft",
+    "fingerprint": "5e3d9229",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:combatArts-24": {
+    "status": "draft",
+    "fingerprint": "0b2fc0b0",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:combatArts-34": {
+    "status": "draft",
+    "fingerprint": "ce5723d6",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:combatArts-39": {
+    "status": "draft",
+    "fingerprint": "450d58c0",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:TEMPORARY_BIND": {
+    "status": "draft",
+    "fingerprint": "c0afcb52",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:REFINED_CONJURATION": {
+    "status": "draft",
+    "fingerprint": "2732ba43",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:stratagems-43": {
+    "status": "draft",
+    "fingerprint": "cb5e5864",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:stratagems-44": {
+    "status": "draft",
+    "fingerprint": "b7e10929",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:PROFANE_MEND": {
+    "status": "draft",
+    "fingerprint": "269939d8",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:SOUL_HARVEST": {
+    "status": "draft",
+    "fingerprint": "e09525ba",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:stratagems-50": {
+    "status": "draft",
+    "fingerprint": "b0112ed7",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:stratagems-51": {
+    "status": "draft",
+    "fingerprint": "eda0b908",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:UNVAVERING_PRESENCE": {
+    "status": "draft",
+    "fingerprint": "ab75d0a2",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:stratagems-47": {
+    "status": "draft",
+    "fingerprint": "cf65dd46",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:stratagems-48": {
+    "status": "draft",
+    "fingerprint": "f4162dfb",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:ADVANCE": {
+    "status": "draft",
+    "fingerprint": "290fd2a3",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:EVASION_TACTICS": {
+    "status": "draft",
+    "fingerprint": "3c3caa51",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:BACK_TO_BACK": {
+    "status": "draft",
+    "fingerprint": "d4cc8d2f",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:BRAZEN_ASSAULT": {
+    "status": "draft",
+    "fingerprint": "5908f80c",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:NURSING_AURA": {
+    "status": "draft",
+    "fingerprint": "26dc5968",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:SPIRITUAL_PARAGON": {
+    "status": "draft",
+    "fingerprint": "c8ea2be6",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:MARCH": {
+    "status": "draft",
+    "fingerprint": "74bd5ac0",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:RALLY_TROOPS": {
+    "status": "draft",
+    "fingerprint": "a08c3937",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:EXPEDITIONARY_PARAGON": {
+    "status": "draft",
+    "fingerprint": "b6b9e506",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:STRIKING_MOMENTUM": {
+    "status": "draft",
+    "fingerprint": "f744d221",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:EXPLOITING_WEAKNESS": {
+    "status": "draft",
+    "fingerprint": "14ce0532",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:GUERRILLA_TACTICS": {
+    "status": "draft",
+    "fingerprint": "8d3251c6",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:MASTERY_OF_POISONS": {
+    "status": "draft",
+    "fingerprint": "22bf3938",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:SWIFT_RETREAT": {
+    "status": "draft",
+    "fingerprint": "9f3b0559",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:UNFAVORABLE_TERRAIN": {
+    "status": "draft",
+    "fingerprint": "0e525f4a",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:ADRENALINE_RUSH": {
+    "status": "draft",
+    "fingerprint": "57d2c627",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:stratagems-58": {
+    "status": "draft",
+    "fingerprint": "5fe96f88",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:stratagems-59": {
+    "status": "draft",
+    "fingerprint": "fbeb4ad8",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:stratagems-38": {
+    "status": "draft",
+    "fingerprint": "ce45c24a",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:stratagems-37": {
+    "status": "draft",
+    "fingerprint": "0533b8f7",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:stratagems-36": {
+    "status": "draft",
+    "fingerprint": "08e31738",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:stratagems-60": {
+    "status": "draft",
+    "fingerprint": "4d6d97b0",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:stratagems-61": {
+    "status": "draft",
+    "fingerprint": "5fa7ed8d",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:STONEKIN": {
+    "status": "draft",
+    "fingerprint": "306ca911",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:SWAMPKIN": {
+    "status": "draft",
+    "fingerprint": "8d7a5912",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:stratagems-53": {
+    "status": "draft",
+    "fingerprint": "5e6a9d25",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:stratagems-54": {
+    "status": "draft",
+    "fingerprint": "1b58336b",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:OVERCOME_PAIN": {
+    "status": "draft",
+    "fingerprint": "9a1b9bbd",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:stratagems-33": {
+    "status": "draft",
+    "fingerprint": "ac4b3b21",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:stratagems-34": {
+    "status": "draft",
+    "fingerprint": "3e2ff3e6",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:stratagems-35": {
+    "status": "draft",
+    "fingerprint": "d9728731",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:stratagems-64": {
+    "status": "draft",
+    "fingerprint": "5323e1ea",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:VICIOUS_OPPORTUNISM": {
+    "status": "draft",
+    "fingerprint": "c04e61a4",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:PIERCING_PERCEPTION": {
+    "status": "draft",
+    "fingerprint": "82e1528b",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:BREAK_THE_OFFENSIVE": {
+    "status": "draft",
+    "fingerprint": "613d0b61",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:CLOSE_RANKS": {
+    "status": "draft",
+    "fingerprint": "d498e188",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:RALLY_TROOPS_S": {
+    "status": "draft",
+    "fingerprint": "2b8706d3",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:CALL_OF_BRAVERY": {
+    "status": "draft",
+    "fingerprint": "652f4a48",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:SACRED_VOW": {
+    "status": "draft",
+    "fingerprint": "3236d2b6",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:SOLEMN_ PRESENCE": {
+    "status": "draft",
+    "fingerprint": "b453208d",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:MIND_INVASION": {
+    "status": "draft",
+    "fingerprint": "9cf27d9c",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:stratagems-41": {
+    "status": "draft",
+    "fingerprint": "2f0a3dc9",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:RECALL_THE_SOULS": {
+    "status": "draft",
+    "fingerprint": "a52f237e",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:stratagems-40": {
+    "status": "draft",
+    "fingerprint": "a8513c5f",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:ARCANE_LINK": {
+    "status": "draft",
+    "fingerprint": "c265487f",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:ARCANE_PROTECTION": {
+    "status": "draft",
+    "fingerprint": "660a0b59",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:MANA_SYPHON": {
+    "status": "draft",
+    "fingerprint": "05e721d7",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:MISSILE_WEAPONS": {
+    "status": "draft",
+    "fingerprint": "0df527a4",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:BITE": {
+    "status": "draft",
+    "fingerprint": "21d64841",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:STAFF_OF_CONJURATION": {
+    "status": "draft",
+    "fingerprint": "e23e60ea",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:CORRODED_WEAPON": {
+    "status": "draft",
+    "fingerprint": "2c65dcd1",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:SHIELD": {
+    "status": "draft",
+    "fingerprint": "f6967f9b",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:DEATHWEAVING_FAN": {
+    "status": "draft",
+    "fingerprint": "d520228c",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:STAFF_OF_CHAOS": {
+    "status": "draft",
+    "fingerprint": "18b21e84",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:POLEAXE": {
+    "status": "draft",
+    "fingerprint": "26c11eb1",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:SWORD": {
+    "status": "draft",
+    "fingerprint": "0e45d5e2",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:GLYPHSCRIBE_DAGGER": {
+    "status": "draft",
+    "fingerprint": "c63133e0",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:SHORT_SWORD": {
+    "status": "draft",
+    "fingerprint": "72ee6913",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:DAGGER": {
+    "status": "draft",
+    "fingerprint": "5575d699",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:HEAVY_POLARM": {
+    "status": "draft",
+    "fingerprint": "08a1488e",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:SPEAR": {
+    "status": "draft",
+    "fingerprint": "9f55eeb7",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:PIERCING_DAGGER": {
+    "status": "draft",
+    "fingerprint": "827683e0",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:HACK_AND_THRASH": {
+    "status": "draft",
+    "fingerprint": "fb0469b6",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:EARTHEN_FISTS": {
+    "status": "draft",
+    "fingerprint": "e1dd7e1b",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:STAFF_OF_LIGHT": {
+    "status": "draft",
+    "fingerprint": "277eb768",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:ARCANE_LANTERN": {
+    "status": "draft",
+    "fingerprint": "bb672e62",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:MASTERCRAFTED_HELRIN_SWORD": {
+    "status": "draft",
+    "fingerprint": "6d832113",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:GARGOYLES_CLAWS": {
+    "status": "draft",
+    "fingerprint": "8fb14706",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:FISTS_OF_STONE": {
+    "status": "draft",
+    "fingerprint": "0e9a92a8",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:SPIRIT_DRUM": {
+    "status": "draft",
+    "fingerprint": "1aedf373",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:BITE_AND_CLAWS": {
+    "status": "draft",
+    "fingerprint": "084d64f0",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:BOW": {
+    "status": "draft",
+    "fingerprint": "43319212",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:CORRODED_WAR_BOW": {
+    "status": "draft",
+    "fingerprint": "26e9b62e",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:CORRODED_SWORD": {
+    "status": "draft",
+    "fingerprint": "ecb99335",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:CORRODED_PIERCING_DAGGER": {
+    "status": "draft",
+    "fingerprint": "b3e0abc2",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:SPECTRAL_WEAPON": {
+    "status": "draft",
+    "fingerprint": "32227ca4",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:SHORT_BOW": {
+    "status": "draft",
+    "fingerprint": "b407633c",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:MASTERCRAFTED_PIERCING_DAGGER": {
+    "status": "draft",
+    "fingerprint": "1fbe3f37",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:GREATSWORD": {
+    "status": "draft",
+    "fingerprint": "5ad4607c",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:SLAYERS_LANCE": {
+    "status": "draft",
+    "fingerprint": "b524d95d",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:CHIMERA_CLAWS": {
+    "status": "draft",
+    "fingerprint": "d035754c",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:SCEPTER_OF_SORCERIES": {
+    "status": "draft",
+    "fingerprint": "4bf5ddb4",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:RENDING_CLAWS": {
+    "status": "draft",
+    "fingerprint": "8a7d7e54",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:ACID_VOMIT": {
+    "status": "draft",
+    "fingerprint": "3bbcdc8b",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:VENOMOUS_BITE": {
+    "status": "draft",
+    "fingerprint": "0882a6cd",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:DESCRATED_RELIC_BLADE": {
+    "status": "draft",
+    "fingerprint": "a56dbc86",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:GREAT_AXE": {
+    "status": "draft",
+    "fingerprint": "2de4b0ee",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:RAGING_THRASH": {
+    "status": "draft",
+    "fingerprint": "4657bd4f",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:BLIGHTED_RELIC_BLADE": {
+    "status": "draft",
+    "fingerprint": "5433e7e2",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:PROFANE_ARC": {
+    "status": "draft",
+    "fingerprint": "ebdb9481",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:STONESPLITTER": {
+    "status": "draft",
+    "fingerprint": "316fd790",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:SEALING_JAVELIN": {
+    "status": "draft",
+    "fingerprint": "261994be",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:WATER_TENTACLE": {
+    "status": "draft",
+    "fingerprint": "72c0b96b",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:ICE_PICK": {
+    "status": "draft",
+    "fingerprint": "c7a40b60",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:TIDAL_WAVE": {
+    "status": "draft",
+    "fingerprint": "dddfa14f",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:WAR_CLUB_2": {
+    "status": "draft",
+    "fingerprint": "1695a5ea",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:RELIC_WEAPON": {
+    "status": "draft",
+    "fingerprint": "181a20f0",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:NAGINATA": {
+    "status": "draft",
+    "fingerprint": "dcb5b258",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:TENGU_SCREECH": {
+    "status": "draft",
+    "fingerprint": "dcff32c9",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:MASTERCRAFTED_SWORD": {
+    "status": "draft",
+    "fingerprint": "912e4ce4",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:PARRYING_DAGGER": {
+    "status": "draft",
+    "fingerprint": "714606c4",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:CROSSBOW": {
+    "status": "draft",
+    "fingerprint": "e87fcb61",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:FIRECRACKER": {
+    "status": "draft",
+    "fingerprint": "e4323c1c",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:GRAPESHOT": {
+    "status": "draft",
+    "fingerprint": "f582ef2b",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:POLEARM": {
+    "status": "draft",
+    "fingerprint": "766e02f1",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:MONKS_STAFF": {
+    "status": "draft",
+    "fingerprint": "ba6216ab",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:BANNER_LANCE": {
+    "status": "draft",
+    "fingerprint": "380480ac",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:EMPYREAN_STANDARD": {
+    "status": "draft",
+    "fingerprint": "4b7b3ea3",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:BATTLE_AXE": {
+    "status": "draft",
+    "fingerprint": "ce3374dd",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:SLAYERS_BLADE": {
+    "status": "draft",
+    "fingerprint": "bc020f6c",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:GREAT_SHIELD": {
+    "status": "draft",
+    "fingerprint": "2e39969e",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:JAVELIN": {
+    "status": "draft",
+    "fingerprint": "28ab4684",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:LIGHT_SHIELD": {
+    "status": "draft",
+    "fingerprint": "2da10ffd",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:CURSED_GRAB": {
+    "status": "draft",
+    "fingerprint": "7fe05c70",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:BISENTO": {
+    "status": "draft",
+    "fingerprint": "90df293b",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:WAR_CLUB_1": {
+    "status": "draft",
+    "fingerprint": "b82950fc",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:LOOTED_WEAPONS": {
+    "status": "draft",
+    "fingerprint": "e0a3297a",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:SUCCUMBING_EMBRACE": {
+    "status": "draft",
+    "fingerprint": "9ff8c193",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:SMALL_BLUDGEON": {
+    "status": "draft",
+    "fingerprint": "ab1f6a89",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:SMASH_AND_TRASH": {
+    "status": "draft",
+    "fingerprint": "ed54fee2",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:CRUSHING_MAW": {
+    "status": "draft",
+    "fingerprint": "acac203a",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:QUAKING_SMASH": {
+    "status": "draft",
+    "fingerprint": "152c71da",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:GLYPH_OF_PROTECTION": {
+    "status": "draft",
+    "fingerprint": "41cd74bd",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-37": {
+    "status": "draft",
+    "fingerprint": "b15b34d4",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-40": {
+    "status": "draft",
+    "fingerprint": "7aef8920",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-73": {
+    "status": "draft",
+    "fingerprint": "446c7dd2",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-39": {
+    "status": "draft",
+    "fingerprint": "0571963b",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-41": {
+    "status": "draft",
+    "fingerprint": "68471036",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-38": {
+    "status": "draft",
+    "fingerprint": "d42a844a",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-36": {
+    "status": "draft",
+    "fingerprint": "cd7050e6",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-47": {
+    "status": "draft",
+    "fingerprint": "c246d7f3",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-57": {
+    "status": "draft",
+    "fingerprint": "38eab179",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-58": {
+    "status": "draft",
+    "fingerprint": "05801b4f",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-75": {
+    "status": "draft",
+    "fingerprint": "2004f927",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-48": {
+    "status": "draft",
+    "fingerprint": "200e925e",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-59": {
+    "status": "draft",
+    "fingerprint": "f4df3a69",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-60": {
+    "status": "draft",
+    "fingerprint": "38a4b734",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-80": {
+    "status": "draft",
+    "fingerprint": "f8d2394a",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-81": {
+    "status": "draft",
+    "fingerprint": "8df51b5c",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-98": {
+    "status": "draft",
+    "fingerprint": "ec146800",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-99": {
+    "status": "draft",
+    "fingerprint": "a5c6c869",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-100": {
+    "status": "draft",
+    "fingerprint": "777536eb",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-44": {
+    "status": "draft",
+    "fingerprint": "43cb6093",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-51": {
+    "status": "draft",
+    "fingerprint": "3b8453c6",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-52": {
+    "status": "draft",
+    "fingerprint": "847ba591",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-70": {
+    "status": "draft",
+    "fingerprint": "a04f5090",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-71": {
+    "status": "draft",
+    "fingerprint": "6c54e3ae",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-72": {
+    "status": "draft",
+    "fingerprint": "08ed61d3",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-131": {
+    "status": "draft",
+    "fingerprint": "d42a82c2",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-132": {
+    "status": "draft",
+    "fingerprint": "8b6db905",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-133": {
+    "status": "draft",
+    "fingerprint": "3d7b3cdf",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-134": {
+    "status": "draft",
+    "fingerprint": "de4d8fd1",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-135": {
+    "status": "draft",
+    "fingerprint": "b2cd2dc8",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-136": {
+    "status": "draft",
+    "fingerprint": "753ddf2e",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-53": {
+    "status": "draft",
+    "fingerprint": "6cd0be22",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-45": {
+    "status": "draft",
+    "fingerprint": "df21aa8f",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-46": {
+    "status": "draft",
+    "fingerprint": "6157ed3a",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-54": {
+    "status": "draft",
+    "fingerprint": "7a629a61",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-55": {
+    "status": "draft",
+    "fingerprint": "50bc3f76",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-56": {
+    "status": "draft",
+    "fingerprint": "93fb9ea6",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-43": {
+    "status": "draft",
+    "fingerprint": "d35ea42f",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-50": {
+    "status": "draft",
+    "fingerprint": "d044950c",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-61": {
+    "status": "draft",
+    "fingerprint": "2c32ca8d",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-49": {
+    "status": "draft",
+    "fingerprint": "dc9076ed",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-62": {
+    "status": "draft",
+    "fingerprint": "efab6c0a",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-64": {
+    "status": "draft",
+    "fingerprint": "7005d093",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-65": {
+    "status": "draft",
+    "fingerprint": "941af854",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-66": {
+    "status": "draft",
+    "fingerprint": "fc46a3af",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-67": {
+    "status": "draft",
+    "fingerprint": "116bc5b0",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-68": {
+    "status": "draft",
+    "fingerprint": "a6f3e782",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-69": {
+    "status": "draft",
+    "fingerprint": "fdfc32c8",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-63": {
+    "status": "draft",
+    "fingerprint": "bbe0c2ef",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-83": {
+    "status": "draft",
+    "fingerprint": "579e350c",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-84": {
+    "status": "draft",
+    "fingerprint": "b68a1750",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-85": {
+    "status": "draft",
+    "fingerprint": "4f0d3cfa",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-86": {
+    "status": "draft",
+    "fingerprint": "988e351f",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-87": {
+    "status": "draft",
+    "fingerprint": "ea4bb587",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-88": {
+    "status": "draft",
+    "fingerprint": "0c1fe0e7",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-91": {
+    "status": "draft",
+    "fingerprint": "4e1a9536",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-89": {
+    "status": "draft",
+    "fingerprint": "5534d921",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-82": {
+    "status": "draft",
+    "fingerprint": "448444f4",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-92": {
+    "status": "draft",
+    "fingerprint": "1e8d3f1d",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-93": {
+    "status": "draft",
+    "fingerprint": "be55f52c",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-94": {
+    "status": "draft",
+    "fingerprint": "cf8d295b",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-95": {
+    "status": "draft",
+    "fingerprint": "68809b2e",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-96": {
+    "status": "draft",
+    "fingerprint": "e7ac77e3",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-97": {
+    "status": "draft",
+    "fingerprint": "14b209e1",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-101": {
+    "status": "draft",
+    "fingerprint": "6f111a79",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-102": {
+    "status": "draft",
+    "fingerprint": "57d88d65",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-103": {
+    "status": "draft",
+    "fingerprint": "8d1c5786",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-104": {
+    "status": "draft",
+    "fingerprint": "5e271894",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-105": {
+    "status": "draft",
+    "fingerprint": "40160bd7",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-106": {
+    "status": "draft",
+    "fingerprint": "03a3f192",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-107": {
+    "status": "draft",
+    "fingerprint": "ed25ed64",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-108": {
+    "status": "draft",
+    "fingerprint": "201a880b",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-114": {
+    "status": "draft",
+    "fingerprint": "3c4bd2de",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-115": {
+    "status": "draft",
+    "fingerprint": "b1a41d44",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-116": {
+    "status": "draft",
+    "fingerprint": "d91a7cc0",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-117": {
+    "status": "draft",
+    "fingerprint": "efc9655a",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-118": {
+    "status": "draft",
+    "fingerprint": "2cfbe2fe",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-119": {
+    "status": "draft",
+    "fingerprint": "3d20a98a",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-120": {
+    "status": "draft",
+    "fingerprint": "44669c67",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-121": {
+    "status": "draft",
+    "fingerprint": "80d9d298",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-122": {
+    "status": "draft",
+    "fingerprint": "cf3edbad",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-123": {
+    "status": "draft",
+    "fingerprint": "680e1a7b",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-124": {
+    "status": "draft",
+    "fingerprint": "10777ae2",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-109": {
+    "status": "draft",
+    "fingerprint": "0da35e06",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-110": {
+    "status": "draft",
+    "fingerprint": "a8530e03",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-111": {
+    "status": "draft",
+    "fingerprint": "a1c61620",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-112": {
+    "status": "draft",
+    "fingerprint": "e0dca53c",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-113": {
+    "status": "draft",
+    "fingerprint": "ef3d41c7",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-42": {
+    "status": "draft",
+    "fingerprint": "0815acab",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-79": {
+    "status": "draft",
+    "fingerprint": "f2a3cfea",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-76": {
+    "status": "draft",
+    "fingerprint": "017be003",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-77": {
+    "status": "draft",
+    "fingerprint": "39801a40",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-90": {
+    "status": "draft",
+    "fingerprint": "c6972598",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-78": {
+    "status": "draft",
+    "fingerprint": "3e39045a",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-125": {
+    "status": "draft",
+    "fingerprint": "c7c671bf",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-126": {
+    "status": "draft",
+    "fingerprint": "5af640de",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-127": {
+    "status": "draft",
+    "fingerprint": "26f860e8",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-128": {
+    "status": "draft",
+    "fingerprint": "418b43b7",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-129": {
+    "status": "draft",
+    "fingerprint": "3c697837",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "rule:spell-130": {
+    "status": "draft",
+    "fingerprint": "0fd60001",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:YARI": {
+    "status": "draft",
+    "fingerprint": "6d02c944",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:NAGAMAKI": {
+    "status": "draft",
+    "fingerprint": "bb349d26",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:DAIKYUU": {
+    "status": "draft",
+    "fingerprint": "e6dfceab",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:KANABOU": {
+    "status": "draft",
+    "fingerprint": "91a5de88",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:BUJUTSU": {
+    "status": "draft",
+    "fingerprint": "d4a8e14f",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:KYUJUTSU": {
+    "status": "draft",
+    "fingerprint": "84a8fb90",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:LUCKY_CHARM": {
+    "status": "draft",
+    "fingerprint": "83e43d0d",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:DUELIST": {
+    "status": "draft",
+    "fingerprint": "c121cd74",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:SEASONED": {
+    "status": "draft",
+    "fingerprint": "57cd998a",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:POISON": {
+    "status": "draft",
+    "fingerprint": "75a63aa2",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:MUFFLED": {
+    "status": "draft",
+    "fingerprint": "51694dd3",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:CLIMBING": {
+    "status": "draft",
+    "fingerprint": "ad7597d0",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:FANGS": {
+    "status": "draft",
+    "fingerprint": "704f5810",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:CONCEALED": {
+    "status": "draft",
+    "fingerprint": "67a628da",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:TIAMAT": {
+    "status": "draft",
+    "fingerprint": "b8cc8d9d",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:ANRAS": {
+    "status": "draft",
+    "fingerprint": "0f572377",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:PAIMON": {
+    "status": "draft",
+    "fingerprint": "17230f75",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:TOME": {
+    "status": "draft",
+    "fingerprint": "8b941104",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:GUARD": {
+    "status": "draft",
+    "fingerprint": "e0dbefa4",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:AMPLIFIER": {
+    "status": "draft",
+    "fingerprint": "a5a2a7cb",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:LINEAGE": {
+    "status": "draft",
+    "fingerprint": "d97a5da5",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:CARPET": {
+    "status": "draft",
+    "fingerprint": "3d5627eb",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:RETINUE": {
+    "status": "draft",
+    "fingerprint": "928de06f",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:CATALYST": {
+    "status": "draft",
+    "fingerprint": "e673d8b3",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:TACTICAL": {
+    "status": "draft",
+    "fingerprint": "14825a3a",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:HAIRON": {
+    "status": "draft",
+    "fingerprint": "3a6e0459",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:SHAPER": {
+    "status": "draft",
+    "fingerprint": "80c08394",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:WEIGHT": {
+    "status": "draft",
+    "fingerprint": "6e99d231",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:PROVIDENCE": {
+    "status": "draft",
+    "fingerprint": "8523e96c",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:DOUBLE_TIME": {
+    "status": "draft",
+    "fingerprint": "72382dcd",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:SURGE": {
+    "status": "draft",
+    "fingerprint": "d24102bf",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:LONGEVITY": {
+    "status": "draft",
+    "fingerprint": "49a582b6",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:POUCH": {
+    "status": "draft",
+    "fingerprint": "3457f8d1",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:FIRST_AID": {
+    "status": "draft",
+    "fingerprint": "fb15d7f2",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:CAMARADERIE": {
+    "status": "draft",
+    "fingerprint": "37ae9298",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:PROTECTION": {
+    "status": "draft",
+    "fingerprint": "261c474a",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:IMPORTED_AMPLIFIER": {
+    "status": "draft",
+    "fingerprint": "208c5abf",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:CROSSBOW": {
+    "status": "draft",
+    "fingerprint": "2649e16f",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:UTILITY": {
+    "status": "draft",
+    "fingerprint": "5c8e035d",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:SMOKESCREEN": {
+    "status": "draft",
+    "fingerprint": "2840148b",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:SPEAR": {
+    "status": "draft",
+    "fingerprint": "20817c1c",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:EXPEDITION": {
+    "status": "draft",
+    "fingerprint": "20d4d22e",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:RAID": {
+    "status": "draft",
+    "fingerprint": "5172d9b6",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "upgrade:JOURNEYMAN": {
+    "status": "draft",
+    "fingerprint": "bc32a692",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "notes:BONEWALKER": {
+    "status": "draft",
+    "fingerprint": "c7333bfd",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "notes:CHIYOHIME": {
+    "status": "draft",
+    "fingerprint": "aa5280af",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "notes:FLAMEWEAVER_NOBLE": {
+    "status": "draft",
+    "fingerprint": "fb6f1baf",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "notes:TOMOE": {
+    "status": "draft",
+    "fingerprint": "bdc0f45e",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "notes:TROLL_PROWLER": {
+    "status": "draft",
+    "fingerprint": "8045f2c9",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "notes:GOBLIN_WARCHIEF": {
+    "status": "draft",
+    "fingerprint": "4f1591f0",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "notes:BLIGHTED_RIFTSPAWN": {
+    "status": "draft",
+    "fingerprint": "36c18553",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "notes:WATER_ELEMENTAL_TIER_III": {
+    "status": "draft",
+    "fingerprint": "ce6bf3b7",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "notes:RENEGADE_RASETSU": {
+    "status": "draft",
+    "fingerprint": "0f6a2193",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "notes:KOGETSU": {
+    "status": "draft",
+    "fingerprint": "14f05668",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "notes:BLADEBRETHREN_ELITE": {
+    "status": "draft",
+    "fingerprint": "da2d3ce7",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "notes:PALADIN_OF_THE_ORDER": {
+    "status": "draft",
+    "fingerprint": "6683a7cf",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "notes:BLUE_RASETSU": {
+    "status": "draft",
+    "fingerprint": "cb0422bd",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  },
+  "notes:DJINNBORN_MARZBAN": {
+    "status": "draft",
+    "fingerprint": "b980d33b",
+    "sourceVersion": "2026-08-31-b8e4fcc12897"
+  }
+}

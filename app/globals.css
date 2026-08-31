@@ -284,13 +284,16 @@ footer {
 }
 .language-controls label {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 6px;
   font-size: 11px;
   letter-spacing: 0.1em;
 }
 .language-controls select {
   padding-right: 22px;
+  min-width: 132px;
+  letter-spacing: normal;
 }
 .builder {
   grid-template-columns: 200px minmax(0, 1fr) 330px !important;
@@ -1179,12 +1182,14 @@ button:disabled {
   }
   .language-controls {
     gap: 8px;
+    flex-wrap: wrap;
+    max-width: 100%;
   }
   .language-controls label {
-    font-size: 9px;
+    font-size: 11px;
   }
   .language-controls select {
-    font-size: 11px;
+    font-size: 12px;
   }
   .join-code {
     flex-wrap: wrap;

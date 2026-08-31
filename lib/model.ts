@@ -32,7 +32,10 @@ export type Character = {
   spellcrafts: { schoolId: string; level: number }[];
   imagePath: string | null;
   mount: string | null;
-  notes: string | null;
+  notes:
+    | string
+    | { description: unknown; title?: string | null; id?: number }
+    | null;
   updatedAt: string;
 };
 export type Spell = RuleRecord & {
@@ -70,6 +73,7 @@ export type Catalog = {
 };
 export type Entry = {
   id: string;
+  element?: string;
   characterId: string;
   notes: string;
   spells: string[];

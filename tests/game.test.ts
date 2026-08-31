@@ -10,8 +10,39 @@ import {
   spellsFor,
 } from '../lib/game.ts';
 import { parseRoster, validateCatalog } from '../lib/validation.ts';
-import { UPGRADES, upgradeCost } from '../lib/upgrades.ts';
+import { UPGRADES, upgradeCost, upgraded } from '../lib/upgrades.ts';
 const d = data as Catalog;
+void test('Djinnborn selects one affinity and resistance; spell reference respects it', () => {
+  const c = d.characters.find((c) => c.id === 'DJINNBORN_MARZBAN')!;
+  const r = {
+    ...freshRoster(d),
+    factionId: 'SAND_KINGDOMS',
+    leaderId: 'djinn',
+    entries: [
+      {
+        id: 'djinn',
+        characterId: c.id,
+        notes: '',
+        spells: [],
+        upgrades: [],
+        element: '',
+      },
+    ],
+  };
+  assert.ok(validate(r, d).some((x) => x.code === 'ELEMENT'));
+  assert.equal(spellsFor(upgraded(c, r.entries[0], d), d).length, 0);
+  r.entries[0].element = 'FIRE';
+  assert.deepEqual(validate(r, d), []);
+  assert.ok(
+    spellsFor(upgraded(c, r.entries[0], d), d).every(
+      (x) => x.element === 'FIRE',
+    ),
+  );
+  assert.equal(
+    parseRoster(JSON.parse(JSON.stringify(r))).entries[0].element,
+    'FIRE',
+  );
+});
 export function legalRoster(): Roster {
   const r = freshRoster(d);
   r.name = 'Test expedition';

@@ -26,6 +26,7 @@ export function parseRoster(x: unknown): Roster {
       !e.id ||
       !str(e.characterId) ||
       !str(e.notes, 2000) ||
+      (e.element !== undefined && !str(e.element, 20)) ||
       !Array.isArray(e.spells) ||
       e.spells.length > 100 ||
       !e.spells.every((s) => str(s)) ||

@@ -54,6 +54,16 @@ export function upgradeCost(
 }
 export function upgraded(c: Character, e: Entry, d: Catalog): Character {
   const out = structuredClone(c);
+  // Guild Hall special rule: the displayed affinities are alternatives, not cumulative.
+  if (c.id === 'DJINNBORN_MARZBAN') {
+    out.traits = out.traits.map((t) =>
+      t.traitId === 'traits-29'
+        ? { ...t, elements: e.element ? [e.element] : [] }
+        : t.traitId === 'traits-38'
+          ? { ...t, value: e.element ?? 'X' }
+          : t,
+    );
+  }
   const add = (k: string, n: number) => {
     if (out.stats[k]) out.stats[k].value = Number(out.stats[k].value) + n;
   };

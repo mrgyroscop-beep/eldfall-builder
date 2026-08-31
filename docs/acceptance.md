@@ -10,7 +10,7 @@
 | 132 Каталог | components/guild-app.tsx + profile.tsx; RU/EN поиск, фракция/класс/цена/тег, диалог профиля |
 | 133 Редактор | фракция, лимит, экземпляры, лидер, upgrades/options/spell reference, локальный черновик |
 | 134 Валидатор | lib/game.ts + upgrades.ts; отдельный движок; серверная проверка перед матчем; unit tests |
-| 135 Локализация | data/localization.json: независимый слой, review-статус каждого перевода, отдельные UI/Data переключатели |
+| 135 Локализация | data/localization.json + data/ru/: полный перевод текущего справочника, интерфейса, матчей и печати; независимые RU/EN; per-record review и защита от изменения источника; tests/i18n.test.tsx |
 | 136 Сохранение | D1 rosters + datasets; read/edit capabilities; optimistic revision; integration tests |
 | 137 Печать | A4 print-only stylesheet; JSON export/import с улучшениями/заклинаниями/версиями |
 | 138 Развёртывание | Sites owner-only + HTTPS; migrations; npm run check; automatic revision backups and JSON restore |
