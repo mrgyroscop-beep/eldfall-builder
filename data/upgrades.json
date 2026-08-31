@@ -1,0 +1,491 @@
+{
+  "version": "upgrades-1.6-reviewed-2026-08-31",
+  "source": "https://drive.google.com/file/d/17pWzpYt1GLh2Hb4DgQXupa4XL09J_xad/view",
+  "records": [
+    {
+      "id": "YARI",
+      "name": "Kassen Buki: Yari-tsukai",
+      "page": 1,
+      "factions": [
+        "EMPIRE_OF_SOGA"
+      ],
+      "cost": 2,
+      "limit": null,
+      "description": "Only a Warrior may receive this Upgrade. \nReplace the Primary Weapon. \nIf the Primary Weapon is Spear, this \nUpgrade costs only 1 PTS.\n 1   2\nLance              Melee, Weapon\n2 PTS-\nEFFECT PW RCH STK\nThrowing, \nTwo-Handed. T+2 2 STA"
+    },
+    {
+      "id": "NAGAMAKI",
+      "name": "Kassen Buki: Nagamaki-tsukai",
+      "page": 2,
+      "factions": [
+        "EMPIRE_OF_SOGA"
+      ],
+      "cost": 2,
+      "limit": null,
+      "description": "Only a Warrior may receive this \nUpgrade. Replace the Primary Weapon \nin this model’s Inventory with the \nLonghilted Sword.\nEFFECT PW RCH STK\nBleed, Sweep I, \nTwo-Handed. T+2 1 STA\n2 PTS-\n 1   2\nLonghilted Sword  Melee, Weapon"
+    },
+    {
+      "id": "DAIKYUU",
+      "name": "Kassen Buki: Daikyuu-tsukai",
+      "page": 3,
+      "factions": [
+        "EMPIRE_OF_SOGA"
+      ],
+      "cost": 3,
+      "limit": null,
+      "description": "Only a Warrior may receive this \nUpgrade. Replace the Primary Weapon. If \nthe model’s Primary Weapon is Short \nBow, this Upgrade costs only 2 PTS.\nEFFECT PW RCH STK\n Stun, \nTwo-Handed. T+4 0-24: 0\n25-48: -6 STA -1\n3 PTS-\n 1   2\nWar Bow      Ranged, Weapon"
+    },
+    {
+      "id": "KANABOU",
+      "name": "Kassen Buki: Kanabou-tsukai",
+      "page": 4,
+      "factions": [
+        "EMPIRE_OF_SOGA"
+      ],
+      "cost": 3,
+      "limit": null,
+      "description": "Only a Warrior may receive this \nUpgrade. Replace the Primary Weapon \nin this model’s Inventory.\nEFFECT PW RCH STK\nArmor-Piercing, \nStagger, Stun, \nTwo-Handed\nT+4 1 STA -1\n3 PTS-\n 1   3\nHeavy Bludgeon   Melee, Weapon"
+    },
+    {
+      "id": "BUJUTSU",
+      "name": "Bujutsu Expertise",
+      "page": 5,
+      "factions": [
+        "EMPIRE_OF_SOGA"
+      ],
+      "cost": 3,
+      "limit": 2,
+      "description": "This model gains Armsmaster Class and \nFencing I Combat Art.\nIf this model already has Fencing, it gains \naccess to the next level of this Combat Art.\nFENCING\nI Masterful Parry: Target’s Melee \nAttack suffers -3 Modifier.\n3 PTS2\nCOMBAT ART, CLASSCLASS"
+    },
+    {
+      "id": "KYUJUTSU",
+      "name": "Kyujutsu Expertise",
+      "page": 6,
+      "factions": [
+        "EMPIRE_OF_SOGA"
+      ],
+      "cost": 3,
+      "limit": 2,
+      "description": "This model gains Marksman Class and \nArchery I Combat Art. If this model \nalready has Archery, it gains access to \nthe next level of this Combat Art.\n3 PTS2\nARCHERY\nI\nOverdraw: The first Reach interval of \nthe used Ranged Weapon is increased \nby 6’’.\nCOMBAT ART, CLASS"
+    },
+    {
+      "id": "LUCKY_CHARM",
+      "name": "Lucky Charm",
+      "page": 7,
+      "factions": [
+        "EMPIRE_OF_SOGA"
+      ],
+      "cost": 3,
+      "limit": 1,
+      "description": "During its Strategic Phase, this model \ngenerates 1 Luck counter (up to a \nmaximum of 3). The model may \nexpend a Luck counter to reroll one die \nin an Activation Sequence or force an \nenemy model attacking it to reroll one \nDamage roll.\n3 PTS1\nPERK"
+    },
+    {
+      "id": "DUELIST",
+      "name": "Traveling Duelist",
+      "page": 8,
+      "factions": [
+        "EMPIRE_OF_SOGA"
+      ],
+      "cost": 3,
+      "limit": 2,
+      "description": "Only a model of the Warrior Class may \nreceive this Upgrade. The model gains \nthe Duelist Trait.\nDuelist: When this model combats an \nenemy model, that model cannot use \nCombat Arts of Level III or below.\n3 PTS2\nTRAIT"
+    },
+    {
+      "id": "SEASONED",
+      "name": "Seasoned Combatant",
+      "page": 9,
+      "factions": [
+        "EMPIRE_OF_SOGA",
+        "HELIAN_LEAGUE"
+      ],
+      "cost": 2,
+      "limit": null,
+      "description": "This model gains the Fearless Trait.\nFearless: This model cannot \nbecome Panicked (State).\n2 PTS-\nTRAIT"
+    },
+    {
+      "id": "POISON",
+      "name": "Poisoned Weapons",
+      "page": 11,
+      "factions": [
+        "COALITION_OF_THENION"
+      ],
+      "cost": 2,
+      "limit": null,
+      "description": "This model gains the Poison I Trait. If this model \nalready has Poison I, it gains access to the next \nLevel of this Trait.\nPoison I: If a model suffers a Wound with this \nTrait, it becomes Weakened until its next \nStrategic Phase.\nPoison II: If a model suffers a Wound by this \nTrait, it becomes Weakened and Poisoned \n(States).\n2 PTS-\nTRAIT"
+    },
+    {
+      "id": "MUFFLED",
+      "name": "Muffled Movement",
+      "page": 12,
+      "factions": [
+        "COALITION_OF_THENION"
+      ],
+      "cost": 2,
+      "limit": null,
+      "description": "This model gains the Stealth I Skill.\nStealth I: If this model activates or enters \nan enemy’s Awareness, that enemy \ncannot declare a Reaction unless it has \nLoS to this model.\n2 PTS-\nSKILL"
+    },
+    {
+      "id": "CLIMBING",
+      "name": "Climbing Expertise",
+      "page": 13,
+      "factions": [
+        "COALITION_OF_THENION"
+      ],
+      "cost": 2,
+      "limit": null,
+      "description": "This model receives the Climbing Skill. \nClimbing: This model may perform the \nClimb Special Movement as a Normal \nMovement, ignoring movement penalties.\n2 PTS-\nSKILL"
+    },
+    {
+      "id": "FANGS",
+      "name": "Fangs of Tiamat",
+      "page": 15,
+      "factions": [
+        "COALITION_OF_THENION"
+      ],
+      "cost": 2,
+      "limit": null,
+      "description": "EFFECT PW RCH STK\nBleeding.\nTargetless.\nUser gains\n+3 ACC.\n8 T, AOE: \nCircular L 1\n2 PTS-\n 1   1\nWar Darts            Consumable"
+    },
+    {
+      "id": "CONCEALED",
+      "name": "Concealed Approach",
+      "page": 17,
+      "factions": [
+        "COALITION_OF_THENION"
+      ],
+      "cost": 3,
+      "limit": null,
+      "description": "This model may begin the \ngame Shrouded.\n3 PTS-\nPERK"
+    },
+    {
+      "id": "TIAMAT",
+      "name": "Devotion: Tiamat",
+      "page": 18,
+      "factions": [
+        "COALITION_OF_THENION"
+      ],
+      "cost": 1,
+      "limit": null,
+      "description": "This Upgrade cannot be assigned to a \nmodel with the Demon Trait.\nThis model gains +1 T. If this model \nis a Warrior or a Rogue, it also gains \n+1 OFF. \n1 PTS-\nPERK"
+    },
+    {
+      "id": "ANRAS",
+      "name": "Devotion: Anras",
+      "page": 19,
+      "factions": [
+        "COALITION_OF_THENION"
+      ],
+      "cost": 1,
+      "limit": null,
+      "description": "This Upgrade cannot be assigned to \na model with the Demon Trait.\nThe model receives +1 DEF. \nIf the model has the Duelist Trait, it \ninstead has +2 DEF.\n1 PTS-\nPERK"
+    },
+    {
+      "id": "PAIMON",
+      "name": "Devotion: Paimon",
+      "page": 20,
+      "factions": [
+        "COALITION_OF_THENION"
+      ],
+      "cost": 2,
+      "limit": null,
+      "description": "This Upgrade cannot be assigned to \na model with the Demon Trait.\nThe model gains +1 INT.\nWhen purchased, it reduces the cost \nof all other Upgrades by 1 (to a \nminimum of 1). \n2 PTS-\nPERK"
+    },
+    {
+      "id": "TOME",
+      "name": "Arcane Tome",
+      "page": 21,
+      "factions": [
+        "SAND_KINGDOMS"
+      ],
+      "cost": 4,
+      "limit": null,
+      "description": "This model gains access to the next \nlevel of one of its selected Spellcrafts.\n4 PTS-\nPERK"
+    },
+    {
+      "id": "GUARD",
+      "name": "Personal Guard",
+      "page": 23,
+      "factions": [
+        "SAND_KINGDOMS"
+      ],
+      "cost": 3,
+      "limit": null,
+      "description": "During Deployment, you may remove this \nUpgrade from this model and assign it to a \nsummoned creature. \nThat creature gains the Sentinel Class but \nmay not fully leave this model’s Awareness. \nIf that summoned creature would be \nremoved from the field, you may return this \nUpgrade to this model and re-assign it to \nanother summoned creature.\n3 PTS-\nCLASS"
+    },
+    {
+      "id": "AMPLIFIER",
+      "name": "Casting Amplifier",
+      "page": 24,
+      "factions": [
+        "SAND_KINGDOMS"
+      ],
+      "cost": 2,
+      "limit": null,
+      "description": "EFFECT PW RCH STK\nWearer has +4 RCH \nwhen casting Spells. - - -\n2 PTS-\n 1   0\nCasting Amplifier          Accessory"
+    },
+    {
+      "id": "LINEAGE",
+      "name": "Elemental Lineage",
+      "page": 26,
+      "factions": [
+        "SAND_KINGDOMS"
+      ],
+      "cost": 4,
+      "limit": 2,
+      "description": "This model gains 1 of the following \nTraits: Affinity (Fire), Affinity \n(Water), Affinity (Earth), Affinity \n(Air).\n4 PTS2\nPERK"
+    },
+    {
+      "id": "CARPET",
+      "name": "Flying Carpet",
+      "page": 27,
+      "factions": [
+        "SAND_KINGDOMS"
+      ],
+      "cost": 4,
+      "limit": 1,
+      "description": "EFFECT PW RCH STK\nWearer may use \nFlight Skill. - - -\n4 PTS1\n 1   0\nFlying Carpet                  Accessory\nThis upgrade may be equipped only by \nmodels of Size M or smaller."
+    },
+    {
+      "id": "RETINUE",
+      "name": "Conjured Retinue",
+      "page": 28,
+      "factions": [
+        "SAND_KINGDOMS"
+      ],
+      "cost": 3,
+      "limit": 1,
+      "description": "Tier I and Tier II creatures \nsummoned by this model receive \nthe Soldier Class.\n3 PTS1\nCLASS"
+    },
+    {
+      "id": "CATALYST",
+      "name": "Mana Catalyst",
+      "page": 29,
+      "factions": [
+        "SAND_KINGDOMS"
+      ],
+      "cost": 1,
+      "limit": null,
+      "description": "You may change one of this \nmodel’s default Affinity Traits to \none of the following: Fire, Water, \nEarth, or Air.\n1 PTS-\nPERK"
+    },
+    {
+      "id": "TACTICAL",
+      "name": "Tactical Expertise",
+      "page": 31,
+      "factions": [
+        "HELIAN_LEAGUE"
+      ],
+      "cost": 3,
+      "limit": 1,
+      "description": "This model receives the Tactician Trait. \nTactician: The Deployment Zone of \nthe party in which this model is \npresent is extended for 5’’(towards the \nmiddle of the field).\n3 PTS1\nTRAIT"
+    },
+    {
+      "id": "HAIRON",
+      "name": "Companion of Hairon",
+      "page": 32,
+      "factions": [
+        "HELIAN_LEAGUE"
+      ],
+      "cost": 2,
+      "limit": 2,
+      "description": "Only a model of the Soldier Class may \nreceive this Upgrade. When using the \nSoldier Class ability, this model also \ncounts itself when receiving the +1 \nOFF, DEF, ACC, INT, and M bonus.\n2 PTS2\nPERK"
+    },
+    {
+      "id": "SHAPER",
+      "name": "Adept Shaper",
+      "page": 34,
+      "factions": [
+        "HELIAN_LEAGUE"
+      ],
+      "cost": 3,
+      "limit": 2,
+      "description": "This model gains access to the next \nlevel of one of its selected \nSpellcrafts.\n3 PTS2\nPERK"
+    },
+    {
+      "id": "WEIGHT",
+      "name": "Glyphscribe: Reduce Weight",
+      "page": 36,
+      "factions": [
+        "HELIAN_LEAGUE"
+      ],
+      "cost": 3,
+      "limit": null,
+      "description": "Choose one: \n• Inscribed Item: Select a Weapon or \nShield in this model’s Inventory; reduce \nits WGT by 1 and increase its STK by 1.\n• Inscribed Armor: This model gains +1 \nAG and +1 SPD.\n3 PTS-\nPERK"
+    },
+    {
+      "id": "PROVIDENCE",
+      "name": "Glyphscribe: Hyperia’s Providence",
+      "page": 37,
+      "factions": [
+        "HELIAN_LEAGUE"
+      ],
+      "cost": 3,
+      "limit": null,
+      "description": "If this model is targeted by a Melee \nAttack, the attacker must make an AG \nroll. On a fail, the attacker suffers –1 \nSTK (to a minimum of 1). If this model \nhas a Shield equipped, it additionally \nimposes a –3 Attack modifier to Ranged \nAttacks to its front.\n3 PTS-\nPERK"
+    },
+    {
+      "id": "DOUBLE_TIME",
+      "name": "Expeditionary Tactics: Double Time",
+      "page": 38,
+      "factions": [
+        "HELIAN_LEAGUE"
+      ],
+      "cost": 3,
+      "limit": 1,
+      "description": "Expend this Upgrade from this \nmodel during the Initiative Check; \nif you do, add +6 to your Initiative \nCheck result.\n3 PTS1\nPERK\n"
+    },
+    {
+      "id": "SURGE",
+      "name": "Expeditionary Tactics: Surge Order",
+      "page": 39,
+      "factions": [
+        "HELIAN_LEAGUE"
+      ],
+      "cost": 3,
+      "limit": 1,
+      "description": "Expend this Upgrade during the \nStrategic Phase. If you do, up to 3 party \nmembers with Affiliation: Helian \nLeague may each Walk, Climb, or Jump. \nThese movements do not provoke \nReactions.\n3 PTS1\nPERK"
+    },
+    {
+      "id": "LONGEVITY",
+      "name": "Gift of Longevity",
+      "page": 40,
+      "factions": [
+        "HELIAN_LEAGUE"
+      ],
+      "cost": 1,
+      "limit": 2,
+      "description": "This model receives +1 INT.\n1 PTS2\nPERK"
+    },
+    {
+      "id": "POUCH",
+      "name": "Pouch",
+      "page": 41,
+      "factions": [
+        "NEUTRAL"
+      ],
+      "cost": 1,
+      "limit": null,
+      "description": "This model’s Inventory is increased \nby 2. The model may receive \nanother Upgrade. \n1 PTS-\nPERK"
+    },
+    {
+      "id": "FIRST_AID",
+      "name": "First Aid",
+      "page": 43,
+      "factions": [
+        "NEUTRAL"
+      ],
+      "cost": 2,
+      "limit": 2,
+      "description": "When a model (including this model) would \nperform a Recovery Check while within \nAwareness of this model, you may discard this \nUpgrade; if you do, that model automatically \nsucceeds the T roll. Alternatively, you may \ndiscard this Upgrade during the Strategic Phase \nto remove all States except Engaged, Crouched, \nFlying, Shrouded, Incapacitated or Dead from an \nAlive model within Awareness.\n2 PTS2\nPERK"
+    },
+    {
+      "id": "CAMARADERIE",
+      "name": "Camaraderie",
+      "page": 45,
+      "factions": [
+        "NEUTRAL"
+      ],
+      "cost": 5,
+      "limit": 3,
+      "description": "A neutral or semi-neutral model \nwith this Upgrade may benefit from \nAuthority Stratagems of its Party \nLeader.\n5 PTS3\nPERK"
+    },
+    {
+      "id": "PROTECTION",
+      "name": "Additional Protection",
+      "page": 46,
+      "factions": [
+        "NEUTRAL"
+      ],
+      "cost": 2,
+      "limit": null,
+      "description": "This model gains +2 ARM and \n–2 AG.\n2 PTS-\nPERK"
+    },
+    {
+      "id": "IMPORTED_AMPLIFIER",
+      "name": "Imported Casting Amplifier",
+      "page": 47,
+      "factions": [
+        "NEUTRAL"
+      ],
+      "cost": 4,
+      "limit": 1,
+      "description": "EFFECT PW RCH STK\nWearer has +4 RCH \nwhen casting Spells. - - -\n4 PTS1\n 1   0\nCasting Amplifier           Accessory"
+    },
+    {
+      "id": "CROSSBOW",
+      "name": "Imported Crossbow",
+      "page": 48,
+      "factions": [
+        "NEUTRAL"
+      ],
+      "cost": 5,
+      "limit": 1,
+      "description": "EFFECT PW RCH STK\nTwo-Handed. 13 0-24: +3\n25-48: -3 1\n 1   2\nCrossbow             Ranged, Weapon\n5 PTS1"
+    },
+    {
+      "id": "UTILITY",
+      "name": "Utility Tool",
+      "page": 49,
+      "factions": [
+        "NEUTRAL"
+      ],
+      "cost": 1,
+      "limit": null,
+      "description": "EFFECT PW RCH STK\nThrowing.\n+1 STK when used \nagainst a model in \nCrouched State.\nT-3 0 STA\n1 PTS-\n 1   0\nDagger            Melee, Weapon"
+    },
+    {
+      "id": "SMOKESCREEN",
+      "name": "Smokescreen",
+      "page": 50,
+      "factions": [
+        "NEUTRAL"
+      ],
+      "cost": 2,
+      "limit": 2,
+      "description": "2 PTS2\n 1   0\nHaze Bomb   Ranged, Consumable\nEFFECT PW RCH STK\nTargetless. When \nusing this Item, the \nmodel may reroll up \nto 1 failed roll. \nAOE becomes Hazy \nEnvironment until \nusers' next \nStrategic Phase.\n0\nT, AOE: \nCircular \nL\n1"
+    },
+    {
+      "id": "SPEAR",
+      "name": "King of the Battlefield",
+      "page": 51,
+      "factions": [
+        "NEUTRAL"
+      ],
+      "cost": 2,
+      "limit": null,
+      "description": "EFFECT PW RCH STK\nThrowing. T 2 STA\n2 PTS-\nSpear              Melee, Weapon  1   2\n"
+    },
+    {
+      "id": "EXPEDITION",
+      "name": "Expedition Leader",
+      "page": 52,
+      "factions": [
+        "NEUTRAL"
+      ],
+      "cost": 5,
+      "limit": null,
+      "description": "This model has the following \nStratagems:\n• Advance! (Authority)\nAll models gain +1 SPD.\n• Back to Back (Authority)\nAll models gain Vigilance.\n5 PTS-\nSTRATAGEM"
+    },
+    {
+      "id": "RAID",
+      "name": "Raid Leader",
+      "page": 53,
+      "factions": [
+        "NEUTRAL"
+      ],
+      "cost": 4,
+      "limit": null,
+      "description": "STRATAGEM\nThis model has the following \nStratagems:\n• Formation Spearhead (Authority)\nTarget model gains Dash.\n• Rallying Command (Authority)\nAll models gain Fearless.\n4 PTS-\nSTRATAGEM\n"
+    },
+    {
+      "id": "JOURNEYMAN",
+      "name": "Journeyman Adventurer",
+      "page": 54,
+      "factions": [
+        "NEUTRAL"
+      ],
+      "cost": 3,
+      "limit": null,
+      "description": "This model gains the Resourceful II \nand Survival (Difficult) Traits.\n3 PTS-\nTRAIT\n"
+    }
+  ]
+}

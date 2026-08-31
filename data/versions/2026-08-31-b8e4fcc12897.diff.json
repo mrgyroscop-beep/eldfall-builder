@@ -1,0 +1,101 @@
+{
+  "version": "2026-08-31-b8e4fcc12897",
+  "previous": "2026-08-31-663d4f741a94",
+  "entities": {
+    "characters": {
+      "added": [],
+      "removed": [],
+      "changed": []
+    },
+    "factions": {
+      "added": [],
+      "removed": [],
+      "changed": []
+    },
+    "schools": {
+      "added": [],
+      "removed": [],
+      "changed": []
+    },
+    "upgrades": {
+      "added": [
+        "YARI",
+        "NAGAMAKI",
+        "DAIKYUU",
+        "KANABOU",
+        "BUJUTSU",
+        "KYUJUTSU",
+        "LUCKY_CHARM",
+        "DUELIST",
+        "SEASONED",
+        "POISON",
+        "MUFFLED",
+        "CLIMBING",
+        "FANGS",
+        "CONCEALED",
+        "TIAMAT",
+        "ANRAS",
+        "PAIMON",
+        "TOME",
+        "GUARD",
+        "AMPLIFIER",
+        "LINEAGE",
+        "CARPET",
+        "RETINUE",
+        "CATALYST",
+        "TACTICAL",
+        "HAIRON",
+        "SHAPER",
+        "WEIGHT",
+        "PROVIDENCE",
+        "DOUBLE_TIME",
+        "SURGE",
+        "LONGEVITY",
+        "POUCH",
+        "FIRST_AID",
+        "CAMARADERIE",
+        "PROTECTION",
+        "IMPORTED_AMPLIFIER",
+        "CROSSBOW",
+        "UTILITY",
+        "SMOKESCREEN",
+        "SPEAR",
+        "EXPEDITION",
+        "RAID",
+        "JOURNEYMAN"
+      ],
+      "removed": [],
+      "changed": []
+    },
+    "classes": {
+      "added": [],
+      "removed": [],
+      "changed": []
+    },
+    "items": {
+      "added": [],
+      "removed": [],
+      "changed": []
+    },
+    "traits": {
+      "added": [],
+      "removed": [],
+      "changed": []
+    },
+    "skills": {
+      "added": [],
+      "removed": [],
+      "changed": []
+    },
+    "combatArts": {
+      "added": [],
+      "removed": [],
+      "changed": []
+    },
+    "stratagems": {
+      "added": [],
+      "removed": [],
+      "changed": []
+    }
+  }
+}

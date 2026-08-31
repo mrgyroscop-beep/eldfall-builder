@@ -1,0 +1,560 @@
+{
+  "status": "draft",
+  "sourceVersion": "2026-08-31",
+  "names": {
+    "EMPIRE_OF_SOGA": "Империя Сога",
+    "HELIAN_LEAGUE": "Гелианская лига",
+    "COALITION_OF_THENION": "Коалиция Тениона",
+    "SAND_KINGDOMS": "Песчаные королевства",
+    "ONI_CLANS": "Кланы Они",
+    "GOBLIN_WARTRIBES": "Боевые племена гоблинов",
+    "ADVENTURERS_GUILD": "Гильдия искателей приключений",
+    "NEUTRAL": "Нейтралы",
+    "CLAN_CHAMPION": "Чемпион клана",
+    "BUSHI_ATTENDANT": "Буси-оруженосец",
+    "KITSUNE_SPELLMAIDEN": "Заклинательница кицунэ",
+    "ONITAOSHI": "Охотник на Они",
+    "MUSHA_BLADEMASTER": "Муся: мастер клинка",
+    "MUSHA_BOWMAN": "Муся: мастер лука",
+    "EXPEDITIONARY_HIEROPHANT": "Экспедиционный иерофант",
+    "FLAMESHAPER": "Ваятель пламени",
+    "CITADEL_GUARD": "Страж цитадели",
+    "HELRIN_EXPATRIATE": "Хелрин-изгнанник",
+    "NIGHTSHADE": "Ночная тень",
+    "THENRIN_SWASHBUCKLER": "Тенрин-фехтовальщик",
+    "RANGERS_GUILD_HUNTER": "Охотник гильдии следопытов",
+    "NIGHT_TEMPLE_PRIESTESS": "Жрица Ночного храма",
+    "VIZIER_OF_CONJURATIONS": "Визирь призыва",
+    "TASKMAGE_EXPLORER": "Маг-исследователь",
+    "ACADEMY_EXPEDITIONER": "Экспедитор Академии",
+    "FARIS_OUTRIDER": "Фарис-разведчик",
+    "SPELLDANCER_VOIDCASTER": "Танцор заклинаний: маг пустоты",
+    "SPELLDANCER_AEROTURGE": "Танцор заклинаний: аэротург",
+    "GUILDSWORN_KNIGHT": "Рыцарь гильдии",
+    "HIRED_BLADE": "Наёмный клинок",
+    "AMAZON_GLADIATRIX": "Амазонка-гладиатор",
+    "SLAYER_DRAGON": "Драгун-истребитель",
+    "GOBLIN_SKIRMISHERS": "Гоблины-застрельщики",
+    "GOBLIN_BRAWLERS": "Гоблины-драчуны",
+    "GOBLIN_WARCHIEF": "Гоблин-вождь",
+    "GOBLIN_SHAMAN": "Гоблин-шаман",
+    "TROLL_PROWLER": "Тролль-охотник",
+    "BONEWALKER": "Костяной ходок",
+    "FORGOTTEN_HERO": "Забытый герой",
+    "VENGEFUL_SPIRIT": "Мстительный дух",
+    "RED_RASETSU": "Красный расэцу",
+    "BLUE_RASETSU": "Синий расэцу",
+    "RED_YAKSHA": "Красный якша",
+    "BLUE_YAKSHA": "Синий якша",
+    "RENEGADE_RASETSU": "Расэцу-отступник",
+    "ONI_MARAUDER": "Они-мародёр",
+    "ONI_PARIAH": "Они-изгой",
+    "CHIYOHIME": "Тиё-химэ",
+    "CHANRE": "Тянрэ",
+    "NARA": "Нара",
+    "SEIGEN": "Сэйгэн",
+    "ANARI": "Анари",
+    "TOMOE": "Томоэ",
+    "THAROS": "Тарос",
+    "KOGETSU": "Когэцу",
+    "GREAT_GUARD": "Великий страж",
+    "SCHOLAR_OF_THE_TRUE_WORD": "Учёный Истинного Слова",
+    "PALADIN_OF_THE_ORDER": "Паладин ордена",
+    "BLADEBRETHREN_ELITE": "Элитный брат клинка",
+    "SHIELDBEARER": "Щитоносец",
+    "EONIAN_RUNNER": "Эонийский бегун",
+    "DJINNBORN_MARZBAN": "Мерзбан, рождённый джинном",
+    "FLAMEWEAVER_ERRANT": "Странствующий ткач пламени",
+    "FLAMEWEAVER_NOBLE": "Благородный ткач пламени",
+    "LUPUS_REX": "Лупус Рекс",
+    "GARGOYLE_TIER_I": "Горгулья — I",
+    "GOLEM_TIER_II": "Голем — II",
+    "EARTH_ELEMENTAL_TIER_III": "Элементаль земли — III",
+    "WATER_ELEMENTAL_TIER_III": "Элементаль воды — III",
+    "COLOSSUS_TIER_IV": "Колосс — IV",
+    "BLIGHTED_RIFTSPAWN": "Порождение разлома",
+    "WARRIOR": "Воин",
+    "ROGUE": "Плут",
+    "MAGE": "Маг",
+    "WIZARD": "Волшебник",
+    "SOLDIER": "Солдат",
+    "SUMMONER": "Призыватель",
+    "ARTIFICER": "Артефактор",
+    "CREATURE": "Существо",
+    "ARMSMASTER": "Мастер оружия",
+    "MARKSMAN": "Стрелок",
+    "FIRE": "Огонь",
+    "WATER": "Вода",
+    "EARTH": "Земля",
+    "ELDER": "Древняя",
+    "DIVINE": "Божественная",
+    "PROFANE": "Нечистая"
+  },
+  "stats": {
+    "STA": "Выносливость / активации",
+    "SPD": "Скорость",
+    "OFF": "Атака",
+    "DEF": "Защита",
+    "ACC": "Точность",
+    "INT": "Интеллект",
+    "AG": "Ловкость",
+    "T": "Стойкость",
+    "ARM": "Броня",
+    "HP": "Здоровье",
+    "M": "Мораль"
+  },
+  "states": {
+    "Bleeding": "Кровотечение",
+    "Blinded": "Ослеплён",
+    "Confused": "Замешательство",
+    "Crippled": "Искалечен",
+    "Crouched": "Пригнулся",
+    "Dead": "Мёртв",
+    "Engaged": "В ближнем бою",
+    "Flying": "Полёт",
+    "Incapacitated": "Выведен из строя",
+    "Panicked": "Паника",
+    "Petrified": "Окаменел",
+    "Poisoned": "Отравлен",
+    "Shrouded": "Скрыт",
+    "Slowed": "Замедлен",
+    "Weakened": "Ослаблен"
+  },
+  "review": {
+    "EMPIRE_OF_SOGA": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "HELIAN_LEAGUE": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "COALITION_OF_THENION": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "SAND_KINGDOMS": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "ONI_CLANS": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "GOBLIN_WARTRIBES": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "ADVENTURERS_GUILD": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "NEUTRAL": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "CLAN_CHAMPION": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "BUSHI_ATTENDANT": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "KITSUNE_SPELLMAIDEN": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "ONITAOSHI": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "MUSHA_BLADEMASTER": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "MUSHA_BOWMAN": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "EXPEDITIONARY_HIEROPHANT": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "FLAMESHAPER": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "CITADEL_GUARD": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "HELRIN_EXPATRIATE": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "NIGHTSHADE": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "THENRIN_SWASHBUCKLER": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "RANGERS_GUILD_HUNTER": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "NIGHT_TEMPLE_PRIESTESS": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "VIZIER_OF_CONJURATIONS": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "TASKMAGE_EXPLORER": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "ACADEMY_EXPEDITIONER": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "FARIS_OUTRIDER": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "SPELLDANCER_VOIDCASTER": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "SPELLDANCER_AEROTURGE": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "GUILDSWORN_KNIGHT": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "HIRED_BLADE": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "AMAZON_GLADIATRIX": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "SLAYER_DRAGON": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "GOBLIN_SKIRMISHERS": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "GOBLIN_BRAWLERS": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "GOBLIN_WARCHIEF": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "GOBLIN_SHAMAN": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "TROLL_PROWLER": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "BONEWALKER": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "FORGOTTEN_HERO": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "VENGEFUL_SPIRIT": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "RED_RASETSU": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "BLUE_RASETSU": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "RED_YAKSHA": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "BLUE_YAKSHA": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "RENEGADE_RASETSU": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "ONI_MARAUDER": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "ONI_PARIAH": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "CHIYOHIME": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "CHANRE": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "NARA": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "SEIGEN": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "ANARI": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "TOMOE": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "THAROS": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "KOGETSU": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "GREAT_GUARD": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "SCHOLAR_OF_THE_TRUE_WORD": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "PALADIN_OF_THE_ORDER": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "BLADEBRETHREN_ELITE": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "SHIELDBEARER": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "EONIAN_RUNNER": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "DJINNBORN_MARZBAN": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "FLAMEWEAVER_ERRANT": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "FLAMEWEAVER_NOBLE": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "LUPUS_REX": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "GARGOYLE_TIER_I": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "GOLEM_TIER_II": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "EARTH_ELEMENTAL_TIER_III": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "WATER_ELEMENTAL_TIER_III": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "COLOSSUS_TIER_IV": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "BLIGHTED_RIFTSPAWN": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "WARRIOR": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "ROGUE": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "MAGE": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "WIZARD": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "SOLDIER": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "SUMMONER": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "ARTIFICER": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "CREATURE": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "ARMSMASTER": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "MARKSMAN": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "FIRE": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "WATER": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "EARTH": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "ELDER": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "DIVINE": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    },
+    "PROFANE": {
+      "status": "draft",
+      "sourceVersion": "2026-08-31",
+      "reviewedBy": null
+    }
+  }
+}
