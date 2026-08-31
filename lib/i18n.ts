@@ -102,7 +102,11 @@ export function translationCurrent(key: string, source: unknown): boolean {
     sourceFingerprint(source)
   );
 }
-export const stateNames = raw.states as Record<string, string>;
+export const stateNames: Record<string, string> = {
+  ...raw.states,
+  Fatigued: 'Утомлён',
+  Immobilized: 'Обездвижен',
+};
 export const statNames = raw.stats as Record<string, string>;
 export const translationStatus = (id: string) =>
   translations[id] ? 'draft' : 'missing';

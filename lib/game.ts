@@ -177,6 +177,8 @@ export const STATES = [
   'Dead',
   'Engaged',
   'Flying',
+  'Fatigued',
+  'Immobilized',
   'Incapacitated',
   'Panicked',
   'Petrified',

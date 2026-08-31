@@ -19,7 +19,7 @@
 | 142 Фиксация | одинаковая версия/лимит, оба подтверждают, отмена до старта; integration tests |
 | 143 Экран | обе стороны, профиль без потери контекста, responsive layout |
 | 144 Счётчики | HP/AP/mana 0..100, VP -1000..1000, round 1..100 — технические границы ручного трекера; states, initiative, undo |
-| 145 Синхронизация | 2s polling, monotonic client revision, D1 CAS and atomic event insert, reconnection |
+| 145 Синхронизация | 2s polling, monotonic client revision, D1 CAS and atomic event insert, reconnection; локальный ограниченный журнал сбоев/восстановления/конфликтов и тесты его безопасного восстановления |
 | 146 История | pause/resume, finish/read-only, result including winner/note, event snapshots, JSON log |
 | 147 Тесты | tests/game.test.ts, service.test.ts, render.test.tsx; реальные локальные D1 queries в изолированной Miniflare |
 

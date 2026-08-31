@@ -69,6 +69,8 @@ import {
   UPGRADE_SOURCE,
 } from '@/lib/upgrades';
 import { parseRoster } from '@/lib/validation';
+import { appendSyncLog, readSyncLog } from '@/lib/sync-log';
+import type { SyncEvent } from '@/lib/sync-log';
 
 type Summary = {
   id: string;
@@ -158,6 +160,11 @@ export default function GuildApp({
   const [history, setHistory] = useState<
     { revision: number; payload: string; updated: string }[]
   >([]);
+  const [syncLog, setSyncLog] = useState<SyncEvent[]>([]);
+  const logSync = useCallback((matchId: string, kind: SyncEvent['kind']) => {
+    const event = { at: new Date().toISOString(), matchId, kind };
+    setSyncLog((rows) => appendSyncLog(rows, event));
+  }, []);
   const importRef = useRef<HTMLInputElement>(null),
     matchRef = useRef<PublicMatch | null>(null),
     t = useCaption(ui);
@@ -222,6 +229,7 @@ export default function GuildApp({
   );
   useEffect(() => {
     try {
+      setSyncLog(readSyncLog(localStorage.getItem('calad.sync-log')));
       const prefs = JSON.parse(
         localStorage.getItem('calad.preferences') ?? 'null',
       );
@@ -276,6 +284,14 @@ export default function GuildApp({
     }
   }, [r, d, meta, dirty, hydrated, ui, lang, playerName]);
   useEffect(() => {
+    if (!hydrated) return;
+    try {
+      localStorage.setItem('calad.sync-log', JSON.stringify(syncLog));
+    } catch {
+      /* Diagnostics never block gameplay or draft saving. */
+    }
+  }, [syncLog, hydrated]);
+  useEffect(() => {
     const guard = (e: BeforeUnloadEvent) => {
       if (dirty) {
         e.preventDefault();
@@ -288,6 +304,7 @@ export default function GuildApp({
     if (tab !== 'matches' || !match?.id) return;
     let cancelled = false,
       inflight = false;
+    let disconnected = false;
     const id = match.id;
     const poll = async () => {
       if (inflight) return;
@@ -301,9 +318,15 @@ export default function GuildApp({
           acceptMatch(s.match);
           setCanJoin(s.canJoin);
           setSync('online');
+          if (disconnected) logSync(id, 'restored');
+          disconnected = false;
         }
       } catch {
-        if (!cancelled) setSync('offline');
+        if (!cancelled) {
+          setSync('offline');
+          if (!disconnected) logSync(id, 'offline');
+          disconnected = true;
+        }
       } finally {
         inflight = false;
       }
@@ -315,7 +338,7 @@ export default function GuildApp({
       clearInterval(interval);
       window.removeEventListener('online', poll);
     };
-  }, [tab, match?.id, matchToken, acceptMatch]);
+  }, [tab, match?.id, matchToken, acceptMatch, logSync]);
   useEffect(() => {
     document.documentElement.lang = ui;
   }, [ui]);
@@ -411,6 +434,10 @@ export default function GuildApp({
       id: match.id,
       revision: match.revision,
       change,
+    }).catch((error: unknown) => {
+      if (error instanceof Error && error.message === 'CONFLICT')
+        logSync(match.id, 'conflict');
+      throw error;
     });
     acceptMatch(s.match);
   };
@@ -1606,6 +1633,33 @@ export default function GuildApp({
         )}
         {tab === 'matches' && (
           <section className="wide-panel no-print">
+            {syncLog.length > 0 && (
+              <details className="event-log">
+                <summary>
+                  {t(
+                    'Журнал связи на этом устройстве',
+                    'Connection log on this device',
+                  )}
+                </summary>
+                {syncLog
+                  .slice()
+                  .reverse()
+                  .map((event, i) => (
+                    <p key={`${event.at}-${i}`}>
+                      {new Date(event.at).toLocaleString(ui)} ·{' '}
+                      {event.matchId.slice(0, 8)} ·{' '}
+                      {event.kind === 'offline'
+                        ? t('Связь потеряна', 'Connection lost')
+                        : event.kind === 'restored'
+                          ? t('Связь восстановлена', 'Connection restored')
+                          : t(
+                              'Конфликт обновлений: сохранено более новое состояние',
+                              'Update conflict: newer state retained',
+                            )}
+                    </p>
+                  ))}
+              </details>
+            )}
             <div className="section-title">
               <h2>{t('Матчевый журнал', 'Match journal')}</h2>
               <label>
