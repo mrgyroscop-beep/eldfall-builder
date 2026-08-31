@@ -58,3 +58,24 @@ export const rosterVersions = sqliteTable(
   },
   (t) => [primaryKey({ columns: [t.roster_id, t.revision] })],
 );
+export const matchInviteCodes = sqliteTable('match_invite_codes', {
+  code_hash: text().primaryKey(),
+  match_id: text().notNull().unique(),
+  invite_hash: text().notNull(),
+  expires: integer().notNull(),
+});
+export const matchInviteGrants = sqliteTable(
+  'match_invite_grants',
+  {
+    match_id: text().notNull(),
+    actor: text().notNull(),
+    invite_hash: text().notNull(),
+    expires: integer().notNull(),
+  },
+  (t) => [primaryKey({ columns: [t.match_id, t.actor] })],
+);
+export const inviteAttempts = sqliteTable('invite_attempts', {
+  actor: text().primaryKey(),
+  window_start: integer().notNull(),
+  attempts: integer().notNull(),
+});

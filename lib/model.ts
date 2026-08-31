@@ -23,7 +23,7 @@ export type Character = {
   >;
   size?: string;
   classes: string[];
-  items: { itemId: string; quantity: number }[];
+  items: { itemId: string; quantity: number | null }[];
   inventorySpace: number;
   skills: string[];
   combatArts: string[];

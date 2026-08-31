@@ -54,6 +54,14 @@ export const errorMessages: Record<string, [string, string]> = {
     'Нужна действующая ссылка или код приглашения.',
     'A valid invitation link or code is required.',
   ],
+  TOO_MANY_INVITE_ATTEMPTS: [
+    'Слишком много попыток ввода кода. Подождите минуту и повторите.',
+    'Too many invitation attempts. Wait a minute and retry.',
+  ],
+  INVITE_CODE_UNAVAILABLE: [
+    'Не удалось выдать код. Откройте матч и обновите приглашение.',
+    'Could not issue a code. Open the match and regenerate its invitation.',
+  ],
   BAD_INPUT: ['Некорректные данные запроса.', 'Invalid request data.'],
   BAD_ACTION: ['Это действие недоступно.', 'This action is unavailable.'],
   BAD_ROSTER: ['Неверная структура ростера.', 'Invalid roster structure.'],

@@ -1,10 +1,18 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync, readdirSync } from 'node:fs';
 import { Miniflare, convertV4MiniflareOptions } from 'miniflare';
-import { initialize, service } from '../lib/service.ts';
+import {
+  digest,
+  initialize,
+  issueInviteCode,
+  newInviteCode,
+  service,
+} from '../lib/service.ts';
 import data from '../data/current.json';
 import type { Catalog, PublicMatch, SavedRoster } from '../lib/model.ts';
 import { freshRoster } from '../lib/game.ts';
+import { inventoryFor, itemPurchase } from '../lib/inventory';
 const d = data as Catalog;
 function roster() {
   const r = freshRoster(d);
@@ -30,6 +38,16 @@ void test('D1 integration: permissions, concurrent writes, snapshots and recover
   );
   try {
     const db = (await mf.getD1Database('DB')) as unknown as D1Database;
+    // Exercise the same additive migrations as deployment, then the idempotent runtime initializer.
+    for (const file of readdirSync('drizzle')
+      .filter((x) => x.endsWith('.sql'))
+      .sort())
+      await db.batch(
+        readFileSync(`drizzle/${file}`, 'utf8')
+          .split('--> statement-breakpoint')
+          .filter((sql) => sql.trim())
+          .map((sql) => db.prepare(sql)),
+      );
     await initialize(db);
     const call = async <T>(
       actor: string,
@@ -37,6 +55,47 @@ void test('D1 integration: permissions, concurrent writes, snapshots and recover
       payload: Record<string, unknown> = {},
     ) => (await service(db, actor, { action, ...payload }, d)) as T;
     type Created = SavedRoster & { readToken: string; editToken: string };
+    await t.test(
+      'item upgrades persist through D1 and immutable match snapshots',
+      async () => {
+        const r = roster();
+        const c = d.characters.find((x) => x.id === 'CLAN_CHAMPION')!;
+        r.entries[0].characterId = c.id;
+        r.entries[0] = itemPurchase(r.entries[0], c, r, d, 'YARI').entry;
+        const saved = await call<Created>('equipment-owner', 'roster.save', {
+          roster: r,
+        });
+        const loaded = await call<SavedRoster>(
+          'equipment-owner',
+          'roster.get',
+          { id: saved.id },
+        );
+        assert.ok(
+          inventoryFor(c, loaded.roster.entries[0], loaded.catalog).lines.some(
+            (x) => x.upgrade?.id === 'YARI',
+          ),
+        );
+        const created = await call<{ match: PublicMatch }>(
+          'equipment-owner',
+          'match.create',
+          { rosterId: saved.id },
+        );
+        r.entries[0].upgrades = [];
+        await call('equipment-owner', 'roster.save', {
+          id: saved.id,
+          revision: saved.revision,
+          roster: r,
+        });
+        const snapshot = created.match.players[0];
+        assert.ok(
+          inventoryFor(
+            c,
+            snapshot.roster.entries[0],
+            snapshot.catalog,
+          ).lines.some((x) => x.upgrade?.id === 'YARI'),
+        );
+      },
+    );
     const a = await call<Created>('alice', 'roster.save', { roster: roster() }),
       b = await call<Created>('bob', 'roster.save', { roster: roster() });
     await t.test(
@@ -96,16 +155,204 @@ void test('D1 integration: permissions, concurrent writes, snapshots and recover
     const created = await call<{
       match: PublicMatch;
       inviteToken: string;
+      inviteCode: string;
       viewToken: string;
     }>('alice', 'match.create', { rosterId: a.id, name: 'Alice' });
     let m = created.match;
     await t.test(
+      'short codes retry collisions, store hashes and expire without breaking long links',
+      async () => {
+        const other = await call<typeof created>('alice', 'match.create', {
+          rosterId: a.id,
+        });
+        const occupied = created.inviteCode;
+        const fresh = newInviteCode();
+        let attempts = 0;
+        const issued = await issueInviteCode(
+          db,
+          other.match.id,
+          await digest(other.inviteToken),
+          () => (++attempts === 1 ? occupied : fresh),
+        );
+        assert.equal(issued, fresh);
+        assert.equal(attempts, 2);
+        const stored = await db
+          .prepare('SELECT * FROM match_invite_codes WHERE match_id=?')
+          .bind(other.match.id)
+          .first<{ code_hash: string; expires: number }>();
+        assert.equal(stored!.code_hash, await digest(fresh));
+        assert.ok(stored!.expires > Date.now());
+        assert.ok(!JSON.stringify(stored).includes(fresh));
+        assert.equal(
+          (
+            await call<{ id: string }>('collision-guest', 'match.find', {
+              token: fresh,
+            })
+          ).id,
+          other.match.id,
+        );
+        await db
+          .prepare('UPDATE match_invite_codes SET expires=0 WHERE match_id=?')
+          .bind(other.match.id)
+          .run();
+        await assert.rejects(
+          call('expired-guest', 'match.find', { token: fresh }),
+          /NOT_FOUND/,
+        );
+        assert.equal(
+          (
+            await call<{ canJoin: boolean }>('long-link-guest', 'match.get', {
+              id: other.match.id,
+              token: other.inviteToken,
+            })
+          ).canJoin,
+          true,
+        );
+        await assert.rejects(
+          call('raw-code-guest', 'match.get', {
+            id: other.match.id,
+            token: fresh,
+          }),
+          /FORBIDDEN/,
+        );
+      },
+    );
+    await t.test(
+      'rotation revokes codes and account grants; legacy 16-character URL tokens still work',
+      async () => {
+        const other = await call<typeof created>('alice', 'match.create', {
+          rosterId: a.id,
+        });
+        await call('rotation-guest', 'match.find', { token: other.inviteCode });
+        const keys = await call<{
+          inviteCode: string;
+          inviteToken: string;
+          viewToken: string;
+        }>('alice', 'match.links', { id: other.match.id, revision: 1 });
+        assert.match(keys.inviteCode, /^[A-HJ-NP-Z2-9]{6}$/);
+        await assert.rejects(
+          call('rotation-guest', 'match.get', { id: other.match.id }),
+          /FORBIDDEN/,
+        );
+        await assert.rejects(
+          call('rotation-guest', 'match.find', { token: other.inviteCode }),
+          /NOT_FOUND/,
+        );
+        await assert.rejects(
+          call('rotation-guest', 'match.get', {
+            id: other.match.id,
+            token: other.inviteToken,
+          }),
+          /FORBIDDEN/,
+        );
+        await assert.rejects(
+          call('rotation-guest', 'match.get', {
+            id: other.match.id,
+            token: other.viewToken,
+          }),
+          /FORBIDDEN/,
+        );
+        await call('rotation-guest', 'match.find', { token: keys.inviteCode });
+        assert.equal(
+          (
+            await call<{ canJoin: boolean }>('rotation-guest', 'match.get', {
+              id: other.match.id,
+            })
+          ).canJoin,
+          true,
+        );
+        await db
+          .prepare(
+            'UPDATE match_invite_grants SET expires=0 WHERE match_id=? AND actor=?',
+          )
+          .bind(other.match.id, 'rotation-guest')
+          .run();
+        await assert.rejects(
+          call('rotation-guest', 'match.get', { id: other.match.id }),
+          /FORBIDDEN/,
+        );
+        const legacyToken = crypto
+          .randomUUID()
+          .replaceAll('-', '')
+          .slice(0, 16);
+        const legacyHash = await digest(legacyToken);
+        await db
+          .prepare(
+            "UPDATE matches SET edit_hash=?,payload=json_set(payload,'$.inviteHash',?) WHERE id=?",
+          )
+          .bind(legacyHash, legacyHash, other.match.id)
+          .run();
+        assert.equal(
+          (
+            await call<{ canJoin: boolean }>('legacy-guest', 'match.get', {
+              id: other.match.id,
+              token: legacyToken,
+            })
+          ).canJoin,
+          true,
+        );
+      },
+    );
+    await t.test(
+      'parallel guesses are limited per authenticated account and reset after a minute',
+      async () => {
+        const guesses = await Promise.allSettled(
+          Array.from({ length: 7 }, () =>
+            call('guesser', 'match.find', { token: '!' }),
+          ),
+        );
+        assert.equal(
+          guesses.filter(
+            (x) => x.status === 'rejected' && x.reason.status === 404,
+          ).length,
+          5,
+        );
+        assert.equal(
+          guesses.filter(
+            (x) => x.status === 'rejected' && x.reason.status === 429,
+          ).length,
+          2,
+        );
+        await assert.rejects(
+          call('guesser', 'match.find', { token: created.inviteCode }),
+          /TOO_MANY_INVITE_ATTEMPTS/,
+        );
+        await db
+          .prepare('UPDATE invite_attempts SET window_start=0 WHERE actor=?')
+          .bind('guesser')
+          .run();
+        assert.equal(
+          (
+            await call<{ id: string }>('guesser', 'match.find', {
+              token: created.inviteCode,
+            })
+          ).id,
+          m.id,
+        );
+        await assert.rejects(
+          call('different-account', 'match.get', { id: m.id }),
+          /FORBIDDEN/,
+        );
+        await assert.rejects(
+          call('guesser', 'match.history', { id: m.id }),
+          /FORBIDDEN/,
+        );
+      },
+    );
+    await t.test(
       'invite code resolves and third parties cannot join without invitation',
       async () => {
         const found = await call<{ id: string }>('bob', 'match.find', {
-          token: created.inviteToken,
+          token: created.inviteCode.toLowerCase(),
         });
         assert.equal(found.id, m.id);
+        assert.match(created.inviteCode, /^[A-HJ-NP-Z2-9]{6}$/);
+        assert.equal(created.inviteToken.length, 32);
+        assert.equal(
+          (await call<{ canJoin: boolean }>('bob', 'match.get', { id: m.id }))
+            .canJoin,
+          true,
+        );
         await assert.rejects(
           call('eve', 'match.get', { id: m.id }),
           /FORBIDDEN/,
@@ -156,12 +403,19 @@ void test('D1 integration: permissions, concurrent writes, snapshots and recover
         await call<{ match: PublicMatch }>('bob', 'match.join', {
           id: m.id,
           revision: 1,
-          token: created.inviteToken,
           rosterId: b.id,
           name: 'Bob',
         })
       ).match;
       assert.equal(m.status, 'confirming');
+      await assert.rejects(
+        call('guesser', 'match.get', { id: m.id }),
+        /FORBIDDEN/,
+      );
+      await assert.rejects(
+        call('late-arrival', 'match.find', { token: created.inviteCode }),
+        /NOT_FOUND/,
+      );
       await assert.rejects(
         call('eve', 'match.join', {
           id: m.id,

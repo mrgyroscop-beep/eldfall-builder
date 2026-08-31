@@ -1,5 +1,7 @@
 'use client';
-import type { Catalog, Character, Lang, RuleRecord } from '@/lib/model';
+import type { Catalog, Character, Entry, Lang, RuleRecord } from '@/lib/model';
+import { InventoryView } from './inventory';
+import { upgraded } from '@/lib/upgrades';
 import {
   name,
   plain,
@@ -98,36 +100,32 @@ export function ProfileBody({
   d,
   lang,
   ui = lang,
+  entry,
 }: {
   c: Character;
   d: Catalog;
   lang: Lang;
   ui?: Lang;
+  entry?: Entry;
 }) {
+  const effective = entry ? upgraded(c, entry, d) : c;
   const refs = (ids: string[], table: RuleRecord[]) =>
     ids
       .map((id) => table.find((x) => x.id === id))
       .filter(Boolean) as RuleRecord[];
   const sections: [string, RuleRecord[]][] = [
     ['Classes', refs(c.classes, d.classes)],
-    [
-      'Inventory',
-      refs(
-        c.items.map((x) => x.itemId),
-        d.items,
-      ),
-    ],
     ['Skills', refs(c.skills, d.skills)],
     ['Combat arts', refs(c.combatArts, d.combatArts)],
     [
       'Traits',
       refs(
-        c.traits.map((x) => x.traitId),
+        effective.traits.map((x) => x.traitId),
         d.traits,
       ),
     ],
     ['Stratagems', refs(c.stratagems, d.stratagems)],
-    ['Available spells', spellsFor(c, d)],
+    ['Available spells', spellsFor(effective, d)],
   ];
   return (
     <>
@@ -145,13 +143,14 @@ export function ProfileBody({
         </p>
         <p>
           {term(c.size ?? '', lang)} · {ui === 'ru' ? 'Инвентарь' : 'Inventory'}{' '}
-          {c.inventorySpace}
+          {effective.inventorySpace}
           {c.mount
             ? ` · ${ui === 'ru' ? 'Верховое животное' : 'Mount'}: ${term(c.mount, lang)}`
             : ''}
         </p>
       </div>
-      <Stats character={c} lang={ui} />
+      <Stats character={effective} lang={ui} />
+      <InventoryView c={c} entry={entry} d={d} lang={lang} ui={ui} />
       <details className="stat-legend">
         <summary>
           {ui === 'ru' ? 'Обозначения характеристик' : 'Attribute key'}
@@ -162,9 +161,9 @@ export function ProfileBody({
             : 'STA — stamina; SPD — speed; OFF — offense; DEF — defense; ACC — accuracy; INT — intellect; AG — agility; T — toughness; ARM — armor; HP — health; M — morale; PW — power; RCH — reach; STK — strikes; WGT — weight; RP — recruitment points.'}
         </p>
       </details>
-      {c.traits.some((t) => t.value || t.elements.length > 0) && (
+      {effective.traits.some((t) => t.value || t.elements.length > 0) && (
         <p className="muted">
-          {c.traits
+          {effective.traits
             .filter((t) => t.value || t.elements.length > 0)
             .map(
               (t) =>
@@ -231,12 +230,14 @@ export function Profile({
   lang,
   close,
   ui = lang,
+  entry,
 }: {
   c: Character | null;
   d: Catalog;
   lang: Lang;
   close: () => void;
   ui?: Lang;
+  entry?: Entry;
 }) {
   return (
     <Dialog
@@ -260,7 +261,7 @@ export function Profile({
                   ? 'Официальные данные на английском'
                   : 'Official English data'}
             </DialogDescription>
-            <ProfileBody c={c} d={d} lang={lang} ui={ui} />
+            <ProfileBody c={c} d={d} lang={lang} ui={ui} entry={entry} />
           </>
         )}
       </DialogContent>

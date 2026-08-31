@@ -29,6 +29,8 @@ import {
   NativeSelectOption as Option,
 } from '@/components/ui/native-select';
 import { Profile, Stats, Rule } from './profile';
+import { EquipmentPanel, InventoryView } from './inventory';
+import { itemPurchase, inventoryFor } from '@/lib/inventory';
 import type {
   Catalog,
   Character,
@@ -145,9 +147,11 @@ export default function GuildApp({
     [tag, setTag] = useState(''),
     [neutral, setNeutral] = useState(true),
     [catalogFaction, setCatalogFaction] = useState('');
-  const [profile, setProfile] = useState<{ c: Character; d: Catalog } | null>(
-      null,
-    ),
+  const [profile, setProfile] = useState<{
+      c: Character;
+      d: Catalog;
+      entry?: Entry;
+    } | null>(null),
     [selected, setSelected] = useState<string | null>(null),
     [match, setMatch] = useState<PublicMatch | null>(null),
     [matchToken, setMatchToken] = useState(''),
@@ -1071,6 +1075,7 @@ export default function GuildApp({
                         const s = await request<{
                           match: PublicMatch;
                           inviteToken: string;
+                          inviteCode: string;
                           viewToken: string;
                         }>('match.create', {
                           rosterId: saved.id,
@@ -1086,8 +1091,11 @@ export default function GuildApp({
                             url: link('m', s.match.id, s.inviteToken),
                           },
                           {
-                            label: t('Код приглашения', 'Invitation code'),
-                            url: s.inviteToken,
+                            label: t(
+                              'Код приглашения · 24 ч',
+                              'Invitation code · 24 h',
+                            ),
+                            url: s.inviteCode,
                           },
                           {
                             label: t('Наблюдатель', 'Spectator'),
@@ -1163,7 +1171,9 @@ export default function GuildApp({
               <div className="row">
                 <Button
                   variant="outline"
-                  onClick={() => setProfile({ c: selectedChar, d })}
+                  onClick={() =>
+                    setProfile({ c: selectedChar, d, entry: selectedEntry })
+                  }
                 >
                   <BookOpen size={16} />
                   {t('Полный профиль', 'Full profile')}
@@ -1179,8 +1189,8 @@ export default function GuildApp({
             />
             <p className="source-note">
               {t(
-                'Показаны базовые характеристики с числовыми бонусами улучшений. Условные эффекты и замены оружия применяйте по карточке.',
-                'Base attributes with numeric upgrade bonuses. Apply conditional effects and weapon replacements using the upgrade card.',
+                'Показаны базовые характеристики с числовыми бонусами улучшений. Выданные предметы и замены оружия отражены в инвентаре; условные боевые эффекты применяйте по карточке.',
+                'Base attributes with numeric upgrade bonuses. Granted items and weapon replacements appear in the inventory; resolve conditional combat effects using the card.',
               )}
             </p>
             <div className="row">
@@ -1215,6 +1225,32 @@ export default function GuildApp({
                 {t('Дублировать модель', 'Duplicate model')}
               </Button>
             </div>
+            <EquipmentPanel
+              key={selectedEntry.id}
+              c={selectedChar}
+              entry={selectedEntry}
+              r={r}
+              d={d}
+              ui={ui}
+              lang={lang}
+              readOnly={readOnly}
+              add={(id) =>
+                mutate((current) => ({
+                  ...current,
+                  entries: current.entries.map((e) =>
+                    e.id === selectedEntry.id
+                      ? itemPurchase(e, selectedChar, current, d, id).entry
+                      : e,
+                  ),
+                }))
+              }
+              remove={(index) =>
+                editEntry(selectedEntry.id, (e) => ({
+                  ...e,
+                  upgrades: e.upgrades.filter((_, i) => i !== index),
+                }))
+              }
+            />
             <div className="loadout-columns">
               {selectedChar.id === 'DJINNBORN_MARZBAN' && (
                 <section>
@@ -1677,25 +1713,37 @@ export default function GuildApp({
                 {t('Код приглашения', 'Invitation code')}
                 <Input
                   value={code}
-                  onChange={(e) => setCode(e.target.value.trim().toLowerCase())}
-                  maxLength={16}
-                  placeholder={t('16 символов', '16 characters')}
+                  onChange={(e) =>
+                    setCode(e.target.value.replace(/\s/g, '').toUpperCase())
+                  }
+                  maxLength={6}
+                  autoCapitalize="characters"
+                  autoComplete="off"
+                  spellCheck={false}
+                  placeholder={t('6 символов', '6 characters')}
+                  aria-describedby="invite-code-help"
                 />
               </label>
               <Button
-                disabled={busy || code.length !== 16}
+                disabled={busy || code.length !== 6}
                 onClick={() =>
                   void run(async () => {
                     const x = await request<{ id: string }>('match.find', {
                       token: code,
                     });
-                    await openMatch(x.id, code);
+                    await openMatch(x.id);
                   })
                 }
               >
                 {t('Открыть приглашение', 'Open invitation')}
               </Button>
             </div>
+            <p id="invite-code-help" className="source-note">
+              {t(
+                '6 букв и цифр, регистр не важен. Код действует 24 часа; после открытия приглашения есть 30 минут, чтобы выбрать ростер и присоединиться.',
+                '6 letters and digits, case-insensitive. Codes expire after 24 hours; after opening an invitation you have 30 minutes to choose a roster and join.',
+              )}
+            </p>
             {match ? (
               <>
                 <div className="match-toolbar">
@@ -1886,8 +1934,9 @@ export default function GuildApp({
                                 className="unit-title"
                                 onClick={() =>
                                   setProfile({
-                                    c: upgraded(c, e, p.catalog),
+                                    c,
                                     d: p.catalog,
+                                    entry: e,
                                   })
                                 }
                               >
@@ -2028,6 +2077,22 @@ export default function GuildApp({
                                   )}
                                 </>
                               )}
+                              <details>
+                                <summary>
+                                  {t(
+                                    'Предметы и инвентарь',
+                                    'Items and inventory',
+                                  )}
+                                </summary>
+                                <InventoryView
+                                  c={c}
+                                  entry={e}
+                                  d={p.catalog}
+                                  ui={ui}
+                                  lang={lang}
+                                  compact
+                                />
+                              </details>
                               {e.notes && <p className="note">{e.notes}</p>}
                               {e.element && (
                                 <p>
@@ -2136,6 +2201,7 @@ export default function GuildApp({
                           void run(async () => {
                             const keys = await request<{
                               inviteToken: string;
+                              inviteCode: string;
                               viewToken: string;
                             }>('match.links', {
                               id: match.id,
@@ -2157,10 +2223,10 @@ export default function GuildApp({
                                     },
                                     {
                                       label: t(
-                                        'Код приглашения',
-                                        'Invitation code',
+                                        'Код приглашения · 24 ч',
+                                        'Invitation code · 24 h',
                                       ),
-                                      url: keys.inviteToken,
+                                      url: keys.inviteCode,
                                     },
                                   ]
                                 : []),
@@ -2171,8 +2237,8 @@ export default function GuildApp({
                             ]);
                             setNotice(
                               t(
-                                'Ссылки обновлены. Предыдущие ссылки отозваны.',
-                                'Links rotated. Previous links revoked.',
+                                'Ссылки и код обновлены. Предыдущие приглашения отозваны.',
+                                'Links and code rotated. Previous invitations revoked.',
                               ),
                             );
                           })
@@ -2306,8 +2372,11 @@ export default function GuildApp({
                 <p>
                   {c.classes.map((id) => term(id, lang)).join(' / ')} ·{' '}
                   {t('Инвентарь', 'Inventory')}:{' '}
-                  {c.items
-                    .map((i) => `${term(i.itemId, lang)} ×${i.quantity}`)
+                  {inventoryFor(c, e, d)
+                    .lines.map(
+                      (line) =>
+                        `${line.itemId ? name(line.itemId, line.name, lang) : lang === 'ru' ? line.ru : line.name} ×${line.quantity ?? '—'}`,
+                    )
                     .join(', ') || '—'}
                 </p>
                 {e.upgrades.map((u, j) => (
@@ -2376,6 +2445,7 @@ export default function GuildApp({
         d={profile?.d ?? d}
         lang={lang}
         ui={ui}
+        entry={profile?.entry}
         close={() => setProfile(null)}
       />
     </div>

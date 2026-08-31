@@ -43,8 +43,13 @@ export function upgradeCost(
   d?: Catalog,
 ) {
   let cost = (d?.upgrades ?? UPGRADES).find((u) => u.id === id)?.cost ?? 0;
-  if (id === 'YARI' && c.items[0]?.itemId === 'SPEAR') cost = 1;
-  if (id === 'DAIKYUU' && c.items[0]?.itemId === 'SHORT_BOW') cost = 2;
+  const primary = d
+    ? c.items.find(
+        (i) => d.items.find((x) => x.id === i.itemId)?.category === 'WEAPON',
+      )
+    : c.items[0];
+  if (id === 'YARI' && primary?.itemId === 'SPEAR') cost = 1;
+  if (id === 'DAIKYUU' && primary?.itemId === 'SHORT_BOW') cost = 2;
   const discounts =
     (r?.entries ?? [e])
       .flatMap((e) => e.upgrades)
