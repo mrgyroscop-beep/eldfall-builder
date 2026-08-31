@@ -38,6 +38,7 @@ import {
 } from '@/components/ui/native-select';
 import { Profile, Stats, Rule } from './profile';
 import { EquipmentPanel, InventoryView } from './inventory';
+import { UpgradeArtwork } from './upgrade-artwork';
 import { itemPurchase, inventoryFor } from '@/lib/inventory';
 import type {
   Catalog,
@@ -1409,7 +1410,17 @@ export default function GuildApp({
                     return (
                       <div className="upgrade" key={`${u.id}-${index}`}>
                         <div className="row">
-                          <b>{spec ? upgradeName(spec, lang) : u.id}</b>
+                          <div className="upgrade-name-with-art">
+                            {spec && (
+                              <UpgradeArtwork
+                                upgrade={spec}
+                                label={upgradeName(spec, lang)}
+                                ui={ui}
+                                factionId={r.factionId}
+                              />
+                            )}
+                            <b>{spec ? upgradeName(spec, lang) : u.id}</b>
+                          </div>
                           <Button
                             variant="ghost"
                             size="icon"

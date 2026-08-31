@@ -8,6 +8,7 @@ import { issueText } from '@/lib/messages';
 import { UPGRADES, UPGRADE_SOURCE, upgradeCost } from '@/lib/upgrades';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { UpgradeArtwork } from './upgrade-artwork';
 const categoryNames: Record<string, string> = {
   WEAPON: 'Оружие',
   SHIELD: 'Щит',
@@ -84,6 +85,13 @@ export function InventoryView({
       <ul className="inventory-list">
         {inventory.lines.map((line) => (
           <li key={line.key}>
+            {line.upgrade && (
+              <UpgradeArtwork
+                upgrade={line.upgrade}
+                label={lang === 'ru' ? (line.ru ?? line.name) : line.name}
+                ui={ui}
+              />
+            )}
             <div className="inventory-item-main">
               <details>
                 <summary>
@@ -236,6 +244,12 @@ export function EquipmentPanel({
             const already = entry.upgrades.some((x) => x.id === u.id);
             return (
               <article className="equipment-option" key={u.id}>
+                <UpgradeArtwork
+                  upgrade={u}
+                  label={itemName}
+                  ui={ui}
+                  factionId={r.factionId}
+                />
                 <div>
                   <h4>{itemName}</h4>
                   <small>

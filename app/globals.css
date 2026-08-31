@@ -295,6 +295,46 @@ footer {
 .inventory-item-main {
   min-width: 0;
 }
+.inventory-item-main {
+  flex: 1;
+}
+.upgrade-artwork {
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  flex: 0 0 76px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--background);
+}
+a.upgrade-artwork:hover {
+  border-color: var(--primary);
+}
+.upgrade-artwork img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.artwork-missing {
+  color: var(--muted-foreground);
+}
+.inventory-list .upgrade-artwork {
+  width: 56px;
+  height: 56px;
+  flex-basis: 56px;
+}
+.upgrade-name-with-art {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.upgrade-name-with-art b {
+  overflow-wrap: anywhere;
+}
 .inventory-heading {
   display: flex;
   flex-wrap: wrap;
@@ -343,11 +383,20 @@ footer {
 }
 .equipment-option {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: 76px minmax(0, 1fr) auto;
   gap: 8px 12px;
   align-items: start;
   padding: 14px 0;
   border-bottom: 1px solid var(--border);
+}
+@media (max-width: 640px) {
+  .equipment-option {
+    grid-template-columns: 76px minmax(0, 1fr);
+  }
+  .equipment-option > button {
+    grid-column: 2;
+    justify-self: start;
+  }
 }
 .equipment-option h4 {
   margin: 0 0 4px;
