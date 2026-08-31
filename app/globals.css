@@ -1060,8 +1060,20 @@ summary {
   padding: 18px 0;
   border-top: 1px solid var(--border);
 }
-.match-unit > p.muted {
-  font-size: 12px;
+.match-equipment {
+  margin-top: 18px;
+  min-width: 0;
+}
+.match-equipment h4 {
+  margin: 20px 0 8px;
+  font-size: 18px;
+}
+.match-equipment .inventory-item-main {
+  overflow-wrap: anywhere;
+}
+.match-equipment .inventory-list summary {
+  min-height: 44px;
+  padding-block: 8px;
 }
 .counters {
   display: flex;

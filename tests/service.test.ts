@@ -75,25 +75,50 @@ void test('D1 integration: permissions, concurrent writes, snapshots and recover
             (x) => x.upgrade?.id === 'YARI',
           ),
         );
-        const created = await call<{ match: PublicMatch }>(
+        const created = await call<{ match: PublicMatch; inviteToken: string }>(
           'equipment-owner',
           'match.create',
           { rosterId: saved.id },
         );
+        const guestSaved = await call<Created>(
+          'equipment-guest',
+          'roster.save',
+          {
+            roster: r,
+          },
+        );
+        await call('equipment-guest', 'match.join', {
+          id: created.match.id,
+          revision: created.match.revision,
+          token: created.inviteToken,
+          rosterId: guestSaved.id,
+        });
         r.entries[0].upgrades = [];
         await call('equipment-owner', 'roster.save', {
           id: saved.id,
           revision: saved.revision,
           roster: r,
         });
-        const snapshot = created.match.players[0];
-        assert.ok(
-          inventoryFor(
-            c,
-            snapshot.roster.entries[0],
-            snapshot.catalog,
-          ).lines.some((x) => x.upgrade?.id === 'YARI'),
+        await call('equipment-guest', 'roster.save', {
+          id: guestSaved.id,
+          revision: guestSaved.revision,
+          roster: r,
+        });
+        const reloaded = await call<{ match: PublicMatch }>(
+          'equipment-owner',
+          'match.get',
+          { id: created.match.id },
         );
+        assert.equal(reloaded.match.players.length, 2);
+        for (const snapshot of reloaded.match.players) {
+          assert.ok(
+            inventoryFor(
+              c,
+              snapshot.roster.entries[0],
+              snapshot.catalog,
+            ).lines.some((x) => x.upgrade?.id === 'YARI'),
+          );
+        }
       },
     );
     const a = await call<Created>('alice', 'roster.save', { roster: roster() }),

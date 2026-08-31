@@ -37,7 +37,8 @@ import {
   NativeSelectOption as Option,
 } from '@/components/ui/native-select';
 import { Profile, Stats, Rule } from './profile';
-import { EquipmentPanel, InventoryView } from './inventory';
+import { EquipmentPanel } from './inventory';
+import { MatchEquipment } from './match-equipment';
 import { UpgradeArtwork } from './upgrade-artwork';
 import { itemPurchase, inventoryFor } from '@/lib/inventory';
 import type {
@@ -1956,6 +1957,12 @@ export default function GuildApp({
                     )}
                   </p>
                 )}
+                <p className="source-note">
+                  {t(
+                    'В матче используется сохранённый состав на момент создания или вступления. Поздние изменения в билдере сюда не переносятся.',
+                    'The match uses each saved roster as it was when creating or joining. Later builder changes are not applied here.',
+                  )}
+                </p>
                 <div className="match-sides">
                   {match.players.map((p, side) => {
                     const own = p.userId === boot.userId,
@@ -2071,16 +2078,6 @@ export default function GuildApp({
                                   <Crown size={16} />
                                 )}
                               </button>
-                              {e.upgrades.length > 0 && (
-                                <p className="muted">
-                                  {e.upgrades
-                                    .map(
-                                      (u) =>
-                                        `${upgradeName((p.catalog.upgrades ?? UPGRADES).find((x) => x.id === u.id) ?? { id: u.id, name: u.id }, lang)}${u.choice ? ` (${term(u.choice, lang)})` : ''}`,
-                                    )
-                                    .join(' · ')}
-                                </p>
-                              )}
                               {u && (
                                 <>
                                   <div className="counters">
@@ -2203,22 +2200,14 @@ export default function GuildApp({
                                   )}
                                 </>
                               )}
-                              <details>
-                                <summary>
-                                  {t(
-                                    'Предметы и инвентарь',
-                                    'Items and inventory',
-                                  )}
-                                </summary>
-                                <InventoryView
-                                  c={c}
-                                  entry={e}
-                                  d={p.catalog}
-                                  ui={ui}
-                                  lang={lang}
-                                  compact
-                                />
-                              </details>
+                              <MatchEquipment
+                                c={c}
+                                entry={e}
+                                d={p.catalog}
+                                factionId={p.roster.factionId}
+                                ui={ui}
+                                lang={lang}
+                              />
                               {e.notes && <p className="note">{e.notes}</p>}
                               {e.element && (
                                 <p>

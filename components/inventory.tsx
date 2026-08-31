@@ -23,6 +23,7 @@ export function InventoryView({
   lang,
   remove,
   compact = false,
+  acquiredFirst = false,
 }: {
   c: Character;
   entry?: Entry;
@@ -31,8 +32,14 @@ export function InventoryView({
   lang: Lang;
   remove?: (index: number) => void;
   compact?: boolean;
+  acquiredFirst?: boolean;
 }) {
   const inventory = inventoryFor(c, entry, d);
+  const lines = acquiredFirst
+    ? [...inventory.lines].sort(
+        (a, b) => Number(!!b.upgrade) - Number(!!a.upgrade),
+      )
+    : inventory.lines;
   const t = (ru: string, en: string) => (ui === 'ru' ? ru : en);
   return (
     <section className={`inventory ${compact ? 'inventory-compact' : ''}`}>
@@ -83,7 +90,7 @@ export function InventoryView({
         </p>
       )}
       <ul className="inventory-list">
-        {inventory.lines.map((line) => (
+        {lines.map((line) => (
           <li key={line.key}>
             {line.upgrade && (
               <UpgradeArtwork
