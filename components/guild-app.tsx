@@ -1,6 +1,5 @@
 'use client';
 /* eslint-disable react/react-compiler -- React Compiler is not enabled; browser-only drafts hydrate after SSR. Other hook and type checks remain enabled. */
-/* eslint-disable next/no-html-link-for-pages -- The only internal anchor starts dispatcher-owned authentication via top-level navigation; it must not use Link/prefetch. */
 /* eslint-disable next/no-img-element -- Official remote card images are lazy-loaded with fixed dimensions; no image proxy is required. */
 import { useState, useEffect, useRef, useCallback } from 'react';
 import {
@@ -798,19 +797,6 @@ export default function GuildApp({
           </label>
         </div>
       </header>
-      {hydrated && !boot.userId && (
-        <div className="message no-print">
-          <span>
-            {t(
-              'Для сохранения и матчей нужен вход.',
-              'Sign in to save rosters and play matches.',
-            )}
-          </span>
-          <a href="/signin-with-chatgpt?return_to=/" target="_top">
-            {t('Войти через ChatGPT', 'Sign in with ChatGPT')} →
-          </a>
-        </div>
-      )}
       <main id="main">
         <div className="workspace-head no-print">
           <div>

@@ -97,6 +97,7 @@ export async function service(
   actor: string,
   body: Record<string, unknown>,
   current: Catalog,
+  inviteRateActor = actor,
 ) {
   if (!actor) throw new Problem(401, 'SIGN_IN_REQUIRED');
   const string = (key: string, fallback = '') => {
@@ -346,7 +347,7 @@ export async function service(
         window_start=CASE WHEN window_start<=? THEN excluded.window_start ELSE window_start END
       RETURNING attempts
     `)
-      .bind(actor, now, now - 60000, now - 60000)
+      .bind(inviteRateActor, now, now - 60000, now - 60000)
       .first<{ attempts: number }>();
     if (!limit || limit.attempts > 5)
       throw new Problem(429, 'TOO_MANY_INVITE_ATTEMPTS');

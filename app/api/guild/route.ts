@@ -1,16 +1,22 @@
 import { env } from 'cloudflare:workers';
 import { catalog } from '@/lib/catalog';
 import { initialize, Problem, service } from '@/lib/service';
+import { browserSession, inviteRateKey } from '@/lib/browser-session';
 export const dynamic = 'force-dynamic';
 export async function POST(request: Request) {
+  const session = await browserSession(request);
+  const respond = (body: unknown, init: ResponseInit = {}) => {
+    const headers = new Headers(init.headers);
+    if (session.setCookie) headers.set('Set-Cookie', session.setCookie);
+    return Response.json(body, { ...init, headers });
+  };
   try {
     const origin = request.headers.get('origin');
     if (origin && origin !== new URL(request.url).origin)
       throw new Problem(403, 'CROSS_ORIGIN');
     if (!request.headers.get('content-type')?.startsWith('application/json'))
       throw new Problem(415, 'JSON_REQUIRED');
-    const actor = request.headers.get('oai-authenticated-user-id');
-    if (!actor) throw new Problem(401, 'SIGN_IN_REQUIRED');
+    const actor = session.actor;
     if (Number(request.headers.get('content-length')) > 150000)
       throw new Problem(413, 'REQUEST_TOO_LARGE');
     const reader = request.body?.getReader();
@@ -38,8 +44,14 @@ export async function POST(request: Request) {
     if (!body || typeof body !== 'object' || Array.isArray(body))
       throw new Problem(400, 'BAD_JSON');
     await initialize(env.DB);
-    const result = await service(env.DB, actor, body, catalog);
-    return Response.json(result, {
+    const result = await service(
+      env.DB,
+      actor,
+      body,
+      catalog,
+      await inviteRateKey(request, actor),
+    );
+    return respond(result, {
       headers: {
         'Cache-Control': 'private, no-store',
         'X-Content-Type-Options': 'nosniff',
@@ -59,7 +71,7 @@ export async function POST(request: Request) {
             : 500;
     if (status === 500)
       console.error('guild_request_failed', { code: e.message });
-    return Response.json(
+    return respond(
       { error: status === 500 ? 'SERVER_ERROR' : e.message },
       { status, headers: { 'Cache-Control': 'no-store' } },
     );

@@ -4,7 +4,7 @@ export const metadata: Metadata = {
   title: 'Calad Guild — Eldfall Chronicles',
   description: 'Личный ростер-билдер и журнал матчей Eldfall Chronicles.',
   robots: { index: false, follow: false },
-  metadataBase: new URL('https://calad-guild-eldfall.mrgyroscop.chatgpt.site'),
+  metadataBase: new URL('https://eldfall-builder.mrgyroscop.workers.dev'),
   openGraph: {
     title: 'Calad Guild — Eldfall Chronicles',
     description: 'Личный ростер-билдер и журнал матчей Eldfall Chronicles.',
