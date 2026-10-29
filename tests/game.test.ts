@@ -151,3 +151,25 @@ void test('spell school and element prerequisites are respected', () => {
       );
     }
 });
+
+void test('standalone upgrades cost points without models and survive import', () => {
+  const r = freshRoster(d);
+  const u = UPGRADES.find((u) => u.cost > 0)!;
+  r.upgrades = [
+    { id: u.id, choice: '' },
+    { id: u.id, choice: '' },
+  ];
+  assert.equal(total(r, d), u.cost * 2);
+  assert.deepEqual(
+    parseRoster(JSON.parse(JSON.stringify(r))).upgrades,
+    r.upgrades,
+  );
+  r.upgrades.pop();
+  assert.equal(total(r, d), u.cost);
+  assert.throws(
+    () => parseRoster({ ...r, upgrades: [{ id: u.id }] }),
+    /BAD_ROSTER/,
+  );
+  r.upgrades = [{ id: 'INVALID', choice: '' }];
+  assert.ok(validate(r, d).some((x) => x.code === 'UNKNOWN'));
+});

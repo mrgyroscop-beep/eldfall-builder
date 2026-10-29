@@ -162,8 +162,9 @@ export function upgradeErrors(
       errors.push(`${spec.name}: wrong faction.`);
     if (
       spec.limit &&
-      r.entries.flatMap((e) => e.upgrades).filter((x) => x.id === u.id).length >
-        spec.limit
+      [...(r.upgrades ?? []), ...r.entries.flatMap((e) => e.upgrades)].filter(
+        (x) => x.id === u.id,
+      ).length > spec.limit
     )
       errors.push(`${spec.name}: party limit ${spec.limit}.`);
     if (

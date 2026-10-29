@@ -19,6 +19,13 @@ export function parseRoster(x: unknown): Roster {
     x.entries.length > 30
   )
     throw Error('BAD_ROSTER');
+  if (
+    x.upgrades !== undefined &&
+    (!Array.isArray(x.upgrades) ||
+      x.upgrades.length > 100 ||
+      !x.upgrades.every((u) => obj(u) && str(u.id) && str(u.choice)))
+  )
+    throw Error('BAD_ROSTER');
   for (const e of x.entries) {
     if (
       !obj(e) ||

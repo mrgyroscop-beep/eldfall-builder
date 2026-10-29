@@ -1057,6 +1057,73 @@ export default function GuildApp({
                     );
                   })}
                 </ol>
+                <section>
+                  <h3>{t('Апгрейды без модели', 'Unassigned upgrades')}</h3>
+                  <p>
+                    {t(
+                      'Базовая стоимость без скидок модели.',
+                      'Base cost without model discounts.',
+                    )}
+                  </p>
+                  <label>
+                    {t('Добавить апгрейд', 'Add upgrade')}
+                    <select
+                      value=""
+                      disabled={readOnly || (r.upgrades?.length ?? 0) >= 100}
+                      onChange={(event) => {
+                        const id = event.target.value;
+                        if (id)
+                          mutate((r) => ({
+                            ...r,
+                            upgrades: [
+                              ...(r.upgrades ?? []),
+                              { id, choice: '' },
+                            ],
+                          }));
+                      }}
+                    >
+                      <option value="">
+                        {t('Выберите апгрейд', 'Choose upgrade')}
+                      </option>
+                      {upgrades
+                        .filter((u) =>
+                          u.factions.some((f) =>
+                            [r.factionId, 'NEUTRAL'].includes(f),
+                          ),
+                        )
+                        .map((u) => (
+                          <option key={u.id} value={u.id}>
+                            {upgradeName(u, lang)} · {u.cost} RP
+                          </option>
+                        ))}
+                    </select>
+                  </label>
+                  {(r.upgrades ?? []).map((u, i) => {
+                    const spec = upgrades.find((x) => x.id === u.id);
+                    return (
+                      <div className="upgrade" key={i}>
+                        <b>
+                          {spec ? upgradeName(spec, lang) : u.id} ·{' '}
+                          {spec?.cost ?? 0} RP
+                        </b>
+                        <p>{spec && upgradeText(spec, lang)}</p>
+                        <Button
+                          disabled={readOnly}
+                          onClick={() =>
+                            mutate((r) => ({
+                              ...r,
+                              upgrades: (r.upgrades ?? []).filter(
+                                (_, index) => index !== i,
+                              ),
+                            }))
+                          }
+                        >
+                          {t('Удалить', 'Remove')}
+                        </Button>
+                      </div>
+                    );
+                  })}
+                </section>
                 <div className="validation" aria-live="polite">
                   {issues.length ? (
                     <>
@@ -2507,6 +2574,20 @@ export default function GuildApp({
               </article>
             );
           })}
+          {!!r.upgrades?.length && (
+            <section>
+              <h3>{t('Апгрейды без модели', 'Unassigned upgrades')}</h3>
+              {r.upgrades.map((u, i) => {
+                const spec = upgrades.find((x) => x.id === u.id);
+                return (
+                  <p key={i}>
+                    {spec ? upgradeName(spec, lang) : u.id} · {spec?.cost ?? 0}{' '}
+                    RP
+                  </p>
+                );
+              })}
+            </section>
+          )}
           <p>{r.notes}</p>
           <p>
             {t('Источник профилей', 'Profile source')}:

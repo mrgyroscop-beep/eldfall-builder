@@ -7,6 +7,7 @@ import type {
   Play,
 } from './model.ts';
 import {
+  UPGRADES,
   upgradeCost,
   upgradeErrors,
   upgraded,
@@ -34,16 +35,23 @@ export function available(c: Character, faction: string) {
   );
 }
 export function total(r: Roster, d: Catalog) {
-  return r.entries.reduce((n, e) => {
-    const c = d.characters.find((c) => c.id === e.characterId);
-    return (
-      n +
-      (c
-        ? c.cost +
-          e.upgrades.reduce((s, u) => s + upgradeCost(u.id, c, e, r, d), 0)
-        : 0)
-    );
-  }, 0);
+  return r.entries.reduce(
+    (n, e) => {
+      const c = d.characters.find((c) => c.id === e.characterId);
+      return (
+        n +
+        (c
+          ? c.cost +
+            e.upgrades.reduce((s, u) => s + upgradeCost(u.id, c, e, r, d), 0)
+          : 0)
+      );
+    },
+    (r.upgrades ?? []).reduce(
+      (sum, u) =>
+        sum + ((d.upgrades ?? UPGRADES).find((s) => s.id === u.id)?.cost ?? 0),
+      0,
+    ),
+  );
 }
 export function spellsFor(c: Character, d: Catalog) {
   const affinities = c.traits.flatMap((t) => t.elements);
@@ -103,6 +111,21 @@ export function validate(r: Roster, d: Catalog): Issue[] {
     add('VERSION', 'Нужна точная версия справочника этого ростера.');
   if (new Set(r.entries.map((e) => e.id)).size !== r.entries.length)
     add('DUPLICATE', 'Идентификаторы экземпляров моделей должны различаться.');
+  for (const u of r.upgrades ?? []) {
+    const spec = (d.upgrades ?? UPGRADES).find((x) => x.id === u.id);
+    if (!spec) {
+      add('UNKNOWN', 'Неизвестный апгрейд.');
+      continue;
+    }
+    if (!spec.factions.some((f) => [r.factionId, 'NEUTRAL'].includes(f)))
+      add('UNAVAILABLE', spec.name + ': недоступен для фракции.');
+    const count = [
+      ...(r.upgrades ?? []),
+      ...r.entries.flatMap((e) => e.upgrades),
+    ].filter((x) => x.id === u.id).length;
+    if (spec.limit && count > spec.limit)
+      add('UPGRADE', spec.name + ': превышен лимит на отряд.');
+  }
   const counts = new Map<string, number>();
   for (const e of r.entries) {
     const c = d.characters.find((c) => c.id === e.characterId);

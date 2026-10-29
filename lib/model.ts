@@ -86,6 +86,7 @@ export type Roster = {
   dataVersion: string;
   rulesVersion: string;
   entries: Entry[];
+  upgrades?: { id: string; choice: string }[];
   leaderId: string | null;
   notes: string;
 };

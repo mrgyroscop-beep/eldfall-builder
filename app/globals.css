@@ -202,6 +202,16 @@ a,
 select {
   cursor: pointer;
 }
+select {
+  color-scheme: dark;
+  color: var(--foreground);
+  background-color: var(--background);
+}
+select option,
+select optgroup {
+  color: var(--foreground);
+  background-color: var(--background);
+}
 button[data-slot='button'] {
   min-height: 44px;
   border-radius: 4px;
