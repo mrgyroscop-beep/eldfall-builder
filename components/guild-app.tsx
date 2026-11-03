@@ -2131,6 +2131,10 @@ export default function GuildApp({
                                   <Crown size={16} />
                                 )}
                               </button>
+                              <Stats
+                                character={upgraded(c, e, p.catalog)}
+                                lang={ui}
+                              />
                               {u && (
                                 <>
                                   <div className="counters">
