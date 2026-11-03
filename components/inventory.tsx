@@ -117,17 +117,6 @@ export function InventoryView({
                       ? ruleText(line.record, lang)
                       : ''}
                 </p>
-                {line.record && (
-                  <p className="mono">
-                    {['PW', 'RCH', 'STK']
-                      .filter((k) => line.record![k] !== undefined)
-                      .map((k) => {
-                        const value = line.record![k];
-                        return `${k} ${typeof value === 'number' || typeof value === 'string' ? value : '—'}`;
-                      })
-                      .join(' · ')}
-                  </p>
-                )}
                 {lang === 'ru' && (
                   <details>
                     <summary>{t('Оригинал (EN)', 'English original')}</summary>
@@ -149,6 +138,44 @@ export function InventoryView({
                   </a>
                 )}
               </details>
+              {line.category === 'WEAPON' && (
+                <table
+                  className="weapon-stats"
+                  aria-label={
+                    t('Характеристики оружия', 'Weapon attributes') +
+                    ': ' +
+                    (line.itemId
+                      ? name(line.itemId, line.name, lang)
+                      : line.name)
+                  }
+                >
+                  <thead>
+                    <tr>
+                      {['PW', 'RCH', 'STK', 'WGT'].map((key) => (
+                        <th scope="col" key={key}>
+                          {key}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      {['PW', 'RCH', 'STK', 'WGT'].map((key) => {
+                        const value =
+                          key === 'WGT' ? line.weight : line.record?.[key];
+                        return (
+                          <td key={key}>
+                            {typeof value === 'number' ||
+                            typeof value === 'string'
+                              ? value
+                              : '—'}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  </tbody>
+                </table>
+              )}
               {line.record && (
                 <ItemTraits record={line.record} d={d} lang={lang} ui={ui} />
               )}

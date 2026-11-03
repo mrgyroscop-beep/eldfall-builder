@@ -1506,3 +1506,28 @@ button:disabled {
 .rule-link:hover {
   background: var(--accent);
 }
+
+.weapon-stats {
+  width: 100%;
+  max-width: 360px;
+  border-collapse: collapse;
+  margin: 10px 0;
+  text-align: center;
+  table-layout: fixed;
+}
+.weapon-stats th,
+.weapon-stats td {
+  border: 1px solid var(--border);
+  padding: 6px 8px;
+}
+.weapon-stats th {
+  background: var(--muted);
+  color: var(--primary);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+}
+.weapon-stats td {
+  color: var(--foreground);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
