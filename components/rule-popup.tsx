@@ -13,30 +13,36 @@ export function RulePopup({
   lang,
   ui,
   suffix = '',
+  text,
+  original,
+  label,
 }: {
   record: RuleRecord;
   lang: Lang;
   ui: Lang;
   suffix?: string;
+  text?: string;
+  original?: string;
+  label?: string;
 }) {
   return (
     <Dialog>
       <DialogTrigger className="rule-link">
-        {ruleName(record, lang)}
+        {label ?? ruleName(record, lang)}
         {suffix}
       </DialogTrigger>
       <DialogContent closeLabel={ui === 'ru' ? 'Закрыть' : 'Close'}>
         <DialogTitle>
-          {ruleName(record, lang)}
+          {label ?? ruleName(record, lang)}
           {suffix}
         </DialogTitle>
         <DialogDescription className="rule-text">
-          {ruleText(record, lang)}
+          {text ?? ruleText(record, lang)}
         </DialogDescription>
         {lang === 'ru' && (
           <details>
             <summary>Оригинал (EN)</summary>
-            <p lang="en">{sourceRuleText(record)}</p>
+            <p lang="en">{original ?? sourceRuleText(record)}</p>
           </details>
         )}
       </DialogContent>
@@ -53,6 +59,24 @@ const weaponRules: Record<string, string> = {
     'On a successful Attack roll, all models within this model’s LoS and Melee RCH suffer a Hit.',
   'SWEEP.2':
     'On a successful Attack roll, this model’s Front arc becomes 360° for the remainder of the Activation Sequence. All models within this model’s Melee RCH and LoS suffer a Hit.',
+};
+const weaponRulesRu: Record<string, [string, string]> = {
+  ARMOR_PIERCING: [
+    'Бронебойное',
+    'При броске урона (DMG) за попадание с этим свойством вычитайте только половину значения брони (ARM) цели.',
+  ],
+  STAGGER: [
+    'Пошатывание',
+    'Модель, получившая попадание с этим свойством, теряет 1 AP до конца хода. Свойство не действует на модели, которые на две или более категории размера крупнее атакующего.',
+  ],
+  'SWEEP.1': [
+    'Размах I',
+    'При успешном броске атаки все модели в линии видимости (LoS) и в пределах досягаемости ближнего боя (Melee RCH) этой модели получают попадание.',
+  ],
+  'SWEEP.2': [
+    'Размах II',
+    'При успешном броске атаки передняя дуга этой модели становится равной 360° до конца последовательности активации. Все модели в пределах её досягаемости ближнего боя (Melee RCH) и линии видимости (LoS) получают попадание.',
+  ],
 };
 export function ItemTraits({
   record,
@@ -86,6 +110,9 @@ export function ItemTraits({
         ) : (
           <RulePopup
             key={i}
+            label={lang === 'ru' ? weaponRulesRu[ref[2]]?.[0] : undefined}
+            text={lang === 'ru' ? weaponRulesRu[ref[2]]?.[1] : undefined}
+            original={weaponRules[ref[2]]}
             record={{
               id: ref[2],
               name: ref[1],

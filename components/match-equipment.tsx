@@ -1,7 +1,13 @@
 'use client';
-import type { Catalog, Character, Entry, Lang } from '@/lib/model';
+import type { Catalog, Character, Entry, Lang, RuleRecord } from '@/lib/model';
 import { itemGrant } from '@/lib/inventory';
-import { term, upgradeName, upgradeText } from '@/lib/i18n';
+import {
+  term,
+  upgradeName,
+  upgradeText,
+  characterNotes,
+  plain,
+} from '@/lib/i18n';
 import { UPGRADES, UPGRADE_SOURCE } from '@/lib/upgrades';
 import { RulePopup } from './rule-popup';
 import { upgraded } from '@/lib/upgrades';
@@ -25,6 +31,12 @@ export function MatchEquipment({
   lang: Lang;
 }) {
   const t = (ru: string, en: string) => (ui === 'ru' ? ru : en);
+  const effective = upgraded(c, entry, d);
+  const sections: [string, string[], RuleRecord[]][] = [
+    [t('Навыки', 'Skills'), effective.skills, d.skills],
+    [t('Боевые искусства', 'Combat arts'), effective.combatArts, d.combatArts],
+    [t('Стратагемы', 'Stratagems'), effective.stratagems, d.stratagems],
+  ];
   // Item-granting cards already appear with their artwork in the inventory.
   const upgrades = entry.upgrades
     .map((selection, index) => ({
@@ -57,6 +69,38 @@ export function MatchEquipment({
           })}
         </div>
       </section>
+      {sections
+        .filter(([, ids]) => ids.length > 0)
+        .map(([title, ids, records]) => (
+          <section key={title} aria-label={title}>
+            <h4>{title}</h4>
+            <div className="rule-links">
+              {ids.map((id) => {
+                const record = records.find((x) => x.id === id);
+                return record ? (
+                  <RulePopup key={id} record={record} lang={lang} ui={ui} />
+                ) : (
+                  <span key={id}>{id}</span>
+                );
+              })}
+            </div>
+          </section>
+        ))}
+      {c.notes && (
+        <section aria-label={t('Особые правила', 'Special rules')}>
+          <h4>{t('Особые правила', 'Special rules')}</h4>
+          <RulePopup
+            record={{
+              id: 'notes:' + c.id,
+              name: t('Особые правила', 'Special rules'),
+            }}
+            lang={lang}
+            ui={ui}
+            text={characterNotes(c, lang)}
+            original={plain(c.notes)}
+          />
+        </section>
+      )}
       <InventoryView
         c={c}
         entry={entry}
