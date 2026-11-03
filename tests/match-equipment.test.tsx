@@ -55,7 +55,14 @@ void test('match equipment exposes purchased items and non-item upgrades without
         html.indexOf(lang === 'ru' ? 'Базовый предмет' : 'Base item'),
       'purchased item precedes base inventory',
     );
-    assert.ok(!html.includes('<button'), 'match equipment is read-only');
+    assert.ok(
+      html.includes('data-slot="dialog-trigger"'),
+      'rule descriptions open in dialogs',
+    );
+    assert.ok(
+      !html.includes('Remove item and upgrade'),
+      'match inventory cannot be edited',
+    );
   }
 });
 

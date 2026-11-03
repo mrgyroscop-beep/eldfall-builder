@@ -1487,3 +1487,22 @@ button:disabled {
     margin: 5px 0;
   }
 }
+
+.rule-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0;
+}
+.rule-link {
+  color: var(--primary);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 8px 12px;
+  text-align: left;
+  cursor: pointer;
+}
+.rule-link:hover {
+  background: var(--accent);
+}

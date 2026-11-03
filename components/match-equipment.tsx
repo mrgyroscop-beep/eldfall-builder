@@ -3,6 +3,8 @@ import type { Catalog, Character, Entry, Lang } from '@/lib/model';
 import { itemGrant } from '@/lib/inventory';
 import { term, upgradeName, upgradeText } from '@/lib/i18n';
 import { UPGRADES, UPGRADE_SOURCE } from '@/lib/upgrades';
+import { RulePopup } from './rule-popup';
+import { upgraded } from '@/lib/upgrades';
 import { InventoryView } from './inventory';
 import { UpgradeArtwork } from './upgrade-artwork';
 
@@ -33,6 +35,28 @@ export function MatchEquipment({
     .filter(({ card }) => !card || !itemGrant(card));
   return (
     <div className="match-equipment">
+      <section aria-label={t('Свойства модели', 'Model traits')}>
+        <h4>{t('Свойства модели', 'Model traits')}</h4>
+        <div className="rule-links">
+          {upgraded(c, entry, d).traits.map((trait, i) => {
+            const record = d.traits.find((x) => x.id === trait.traitId);
+            const values = [trait.value, ...trait.elements]
+              .filter(Boolean)
+              .map((x) => term(x!, lang));
+            return record ? (
+              <RulePopup
+                key={i}
+                record={record}
+                lang={lang}
+                ui={ui}
+                suffix={values.length ? ': ' + values.join(', ') : ''}
+              />
+            ) : (
+              <span key={i}>{trait.traitId}</span>
+            );
+          })}
+        </div>
+      </section>
       <InventoryView
         c={c}
         entry={entry}

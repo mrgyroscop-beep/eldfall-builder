@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { ItemTraits } from './rule-popup';
 import { Plus, Trash2, Backpack } from 'lucide-react';
 import type { Catalog, Character, Entry, Lang, Roster } from '@/lib/model';
 import { inventoryFor, itemGrant, itemPurchase } from '@/lib/inventory';
@@ -148,6 +149,9 @@ export function InventoryView({
                   </a>
                 )}
               </details>
+              {line.record && (
+                <ItemTraits record={line.record} d={d} lang={lang} ui={ui} />
+              )}
               <small>
                 {ui === 'ru'
                   ? categoryNames[line.category]
